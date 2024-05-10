@@ -1,0 +1,59 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Users\duydu\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js install --force
+
+PATH: 
+  C:\Users\duydu\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\duydu\bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files\dotnet;C:\Program Files\Git\cmd;C:\ProgramData\chocolatey\bin;C:\Program Files\PuTTY;%NVM_HOME%;%NVM_SYMLINK%;C:\Program Files\Go\bin;C:\Program Files\Docker\Docker\resources\bin;C:\Program Files\Cloudflare\Cloudflare WARP;C:\Users\duydu\AppData\Local\Programs\Python\Python39\Scripts;C:\Users\duydu\AppData\Local\Programs\Python\Python39;C:\Users\duydu\.cargo\bin;C:\Users\duydu\AppData\Local\Microsoft\WindowsApps;C:\Users\duydu\AppData\Roaming\npm;C:\Users\duydu\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Users\duydu\go\bin;C:\Users\duydu\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\duydu\.dotnet\tools;C:\Program Files\OpenSSL-Win64\bin;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
+
+Yarn version: 
+  1.22.19
+
+Node version: 
+  18.16.1
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: EPERM: operation not permitted, unlink 'D:\var-meta\VaporFund\v2\in\vapor-core\node_modules\@nomicfoundation\solidity-analyzer-win32-x64-msvc\solidity-analyzer.win32-x64-msvc.node'
+
+npm manifest: 
+  {
+    "name": "contracts",
+    "version": "0.1.0",
+    "description": "This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.",
+    "main": "index.js",
+    "license": "MIT",
+    "scripts": {
+      "test": "npx hardhat test"
+    },
+    "devDependencies": {
+      "@nomicfoundation/hardhat-chai-matchers": "^2.0.1",
+      "@nomicfoundation/hardhat-network-helpers": "1.0.10",
+      "@nomicfoundation/hardhat-toolbox": "^3.0.0",
+      "@nomicfoundation/hardhat-verify": "^1.0.4",
+      "@openzeppelin/contracts": "^4.9.3",
+      "@openzeppelin/contracts-upgradeable": "^4.9.3",
+      "@openzeppelin/hardhat-upgrades": "^2.0.1",
+      "@openzeppelin/merkle-tree": "^1.0.6",
+      "dotenv": "^16.1.4",
+      "ethers": "^6.11.1",
+      "hardhat": "^2.20.1",
+      "hardhat-contract-sizer": "^2.10.0",
+      "hardhat-docgen": "^0.0.0",
+      "hardhat-gas-reporter": "^1.0.9",
+      "hardhat-log-remover": "^2.0.2",
+      "hardhat-tracer": "^2.5.1",
+      "solidity-coverage": "^0.8.4"
+    },
+    "directories": {
+      "test": "test"
+    },
+    "keywords": [],
+    "author": ""
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

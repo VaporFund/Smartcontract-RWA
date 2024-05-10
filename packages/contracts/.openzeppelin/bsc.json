@@ -1,0 +1,881 @@
+{
+  "manifestVersion": "3.2",
+  "admin": {
+    "address": "0x52c8923A9648a0A544EeaAF78280eA2C6f1eBeAa",
+    "txHash": "0xda62d6efc58e55fbe78d93aa7e82a7191cded47219f1c043b6ef5d1f6bc9ebc6"
+  },
+  "proxies": [
+    {
+      "address": "0x49e777bde9513aCBf8c41e1607Dbb5906285430d",
+      "txHash": "0x6984300434916ada885a7680991abe2bd734d63c462149855c329a32c23f49b7",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x761C0bF4712a1225816C04082Aa78c5309fd4fC2",
+      "txHash": "0x1d2aaae6684a4992d5a50fb58a25910a37cf88ff97d21d120c75473ba87a9a80",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xa931a7bc8D6499Bc511997C8c96fF6F8d1c28861",
+      "txHash": "0xd5a3119aca9e7ae1104b2665d4421cb4a7b6d7088ca595b646d4be175417c1df",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xA399C8215c7Ea8104bf3e1182762a772F46B8F80",
+      "txHash": "0x2ca500b5cb1f0a4575a48da2195d45cb3d926a55354a7d0c6e656e3caa33ac06",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x33a3AF5b6CD03191Dac6711217f7Da26bAed96D6",
+      "txHash": "0x4dc47f14d4095e4b48ee62589c5e99b23e5876cc650ebfebb27bd2d263261212",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x6bD3F345Da171a2c21e567Fd4C402FE9C26596b4",
+      "txHash": "0x50a04a36bef3a15bdd4e6df2b48048e9219a5ac4bf18d46cc93154a3e9a39712",
+      "kind": "transparent"
+    }
+  ],
+  "impls": {
+    "5d2410250b9b63ea593797abf6c4713cdc92b9f76c0883772d6357aa3cbec73e": {
+      "address": "0xCBBe3423bEA4D4ADe228139d9f6F10F023Eb70A0",
+      "txHash": "0x2a9b88282abeea874c32f47e5438bf7b6980b5e633cb8cd5888656b164fe4ec7",
+      "layout": {
+        "solcVersion": "0.8.20",
+        "storage": [
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint8",
+            "contract": "Initializable",
+            "src": "@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:63",
+            "retypedFrom": "bool"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "0",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:68"
+          },
+          {
+            "label": "requests",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_array(t_struct(Request)519_storage)dyn_storage",
+            "contract": "MultiSigController",
+            "src": "contracts\\MultiSigController.sol:37"
+          },
+          {
+            "label": "roleRequests",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_array(t_struct(RoleRequest)533_storage)dyn_storage",
+            "contract": "MultiSigController",
+            "src": "contracts\\MultiSigController.sol:38"
+          },
+          {
+            "label": "operators",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_array(t_address)dyn_storage",
+            "contract": "MultiSigController",
+            "src": "contracts\\MultiSigController.sol:40"
+          },
+          {
+            "label": "isOperator",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_mapping(t_address,t_bool)",
+            "contract": "MultiSigController",
+            "src": "contracts\\MultiSigController.sol:41"
+          },
+          {
+            "label": "contracts",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_mapping(t_address,t_bool)",
+            "contract": "MultiSigController",
+            "src": "contracts\\MultiSigController.sol:44"
+          },
+          {
+            "label": "numConfirmationsRequired",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_uint8",
+            "contract": "MultiSigController",
+            "src": "contracts\\MultiSigController.sol:46"
+          },
+          {
+            "label": "admin",
+            "offset": 1,
+            "slot": "6",
+            "type": "t_address",
+            "contract": "MultiSigController",
+            "src": "contracts\\MultiSigController.sol:48"
+          },
+          {
+            "label": "isConfirmed",
+            "offset": 0,
+            "slot": "7",
+            "type": "t_mapping(t_uint32,t_mapping(t_address,t_bool))",
+            "contract": "MultiSigController",
+            "src": "contracts\\MultiSigController.sol:51"
+          },
+          {
+            "label": "isRoleConfirmed",
+            "offset": 0,
+            "slot": "8",
+            "type": "t_mapping(t_uint32,t_mapping(t_address,t_bool))",
+            "contract": "MultiSigController",
+            "src": "contracts\\MultiSigController.sol:54"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_array(t_address)dyn_storage": {
+            "label": "address[]",
+            "numberOfBytes": "32"
+          },
+          "t_array(t_struct(Request)519_storage)dyn_storage": {
+            "label": "struct MultiSigController.Request[]",
+            "numberOfBytes": "32"
+          },
+          "t_array(t_struct(RoleRequest)533_storage)dyn_storage": {
+            "label": "struct MultiSigController.RoleRequest[]",
+            "numberOfBytes": "32"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_bytes_storage": {
+            "label": "bytes",
+            "numberOfBytes": "32"
+          },
+          "t_enum(RoleAction)523": {
+            "label": "enum MultiSigController.RoleAction",
+            "members": [
+              "SET_ADMIN",
+              "ADD_OPERATOR",
+              "REMOVE_OPERATOR"
+            ],
+            "numberOfBytes": "1"
+          },
+          "t_mapping(t_address,t_bool)": {
+            "label": "mapping(address => bool)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint32,t_mapping(t_address,t_bool))": {
+            "label": "mapping(uint32 => mapping(address => bool))",
+            "numberOfBytes": "32"
+          },
+          "t_struct(Request)519_storage": {
+            "label": "struct MultiSigController.Request",
+            "members": [
+              {
+                "label": "contractAddress",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "data",
+                "type": "t_bytes_storage",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "executed",
+                "type": "t_bool",
+                "offset": 0,
+                "slot": "2"
+              },
+              {
+                "label": "numConfirmations",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "3"
+              }
+            ],
+            "numberOfBytes": "128"
+          },
+          "t_struct(RoleRequest)533_storage": {
+            "label": "struct MultiSigController.RoleRequest",
+            "members": [
+              {
+                "label": "role",
+                "type": "t_enum(RoleAction)523",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "account",
+                "type": "t_address",
+                "offset": 1,
+                "slot": "0"
+              },
+              {
+                "label": "numConfirmations",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "executed",
+                "type": "t_bool",
+                "offset": 0,
+                "slot": "2"
+              }
+            ],
+            "numberOfBytes": "96"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint32": {
+            "label": "uint32",
+            "numberOfBytes": "4"
+          },
+          "t_uint8": {
+            "label": "uint8",
+            "numberOfBytes": "1"
+          }
+        },
+        "namespaces": {}
+      }
+    },
+    "cada83eaf3f8a6c8538f5b78ef315f6d0f3b0955c48c737d0a404f4d9966bd05": {
+      "address": "0xb6D43691Cd69e90931f78b6316677C3e1B9A96c9",
+      "txHash": "0xab7cdae2f5f08fea10b742387316318734cbd608c8a919fb0691aea5ccce6403",
+      "layout": {
+        "solcVersion": "0.8.20",
+        "storage": [
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint8",
+            "contract": "Initializable",
+            "src": "@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:63",
+            "retypedFrom": "bool"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "0",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:68"
+          },
+          {
+            "label": "controller",
+            "offset": 2,
+            "slot": "0",
+            "type": "t_contract(IMultiSigController)9638",
+            "contract": "VaultManager",
+            "src": "contracts\\VaultManager.sol:27"
+          },
+          {
+            "label": "factory",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_contract(ITokenFactory)6664",
+            "contract": "VaultManager",
+            "src": "contracts\\VaultManager.sol:28"
+          },
+          {
+            "label": "vault",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_contract(IVaultStakingBSC)9754",
+            "contract": "VaultManager",
+            "src": "contracts\\VaultManager.sol:29"
+          },
+          {
+            "label": "bridgeTokens",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_array(t_address)dyn_storage",
+            "contract": "VaultManager",
+            "src": "contracts\\VaultManager.sol:30"
+          },
+          {
+            "label": "orders",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_mapping(t_address,t_struct(Order)6680_storage)",
+            "contract": "VaultManager",
+            "src": "contracts\\VaultManager.sol:31"
+          },
+          {
+            "label": "limitLpIns",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_mapping(t_address,t_uint256)",
+            "contract": "VaultManager",
+            "src": "contracts\\VaultManager.sol:32"
+          },
+          {
+            "label": "maxRebasePercentPerHour",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_mapping(t_address,t_uint256)",
+            "contract": "VaultManager",
+            "src": "contracts\\VaultManager.sol:33"
+          },
+          {
+            "label": "paused",
+            "offset": 0,
+            "slot": "7",
+            "type": "t_bool",
+            "contract": "VaultManager",
+            "src": "contracts\\VaultManager.sol:35"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_array(t_address)dyn_storage": {
+            "label": "address[]",
+            "numberOfBytes": "32"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_contract(IMultiSigController)9638": {
+            "label": "contract IMultiSigController",
+            "numberOfBytes": "20"
+          },
+          "t_contract(ITokenFactory)6664": {
+            "label": "contract ITokenFactory",
+            "numberOfBytes": "20"
+          },
+          "t_contract(IVaultStakingBSC)9754": {
+            "label": "contract IVaultStakingBSC",
+            "numberOfBytes": "20"
+          },
+          "t_mapping(t_address,t_struct(Order)6680_storage)": {
+            "label": "mapping(address => struct VaultManager.Order)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_uint256)": {
+            "label": "mapping(address => uint256)",
+            "numberOfBytes": "32"
+          },
+          "t_struct(Order)6680_storage": {
+            "label": "struct VaultManager.Order",
+            "members": [
+              {
+                "label": "baseToken",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "pairToken",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "beneficialAddress",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "2"
+              },
+              {
+                "label": "active",
+                "type": "t_bool",
+                "offset": 20,
+                "slot": "2"
+              },
+              {
+                "label": "enabled",
+                "type": "t_bool",
+                "offset": 21,
+                "slot": "2"
+              }
+            ],
+            "numberOfBytes": "96"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint8": {
+            "label": "uint8",
+            "numberOfBytes": "1"
+          }
+        },
+        "namespaces": {}
+      }
+    },
+    "79416102b07902108bb0b8b1c1808f4f5ba8ac82603d548d45057698252d3b4d": {
+      "address": "0x4dF43DC41139883e20ffAAeFec268D0Aa42245Cc",
+      "txHash": "0x83dc5c59dd55a6f96e0d71e867d6d4e7e4f589cd01561a44791229cf5fec1e2f",
+      "layout": {
+        "solcVersion": "0.8.20",
+        "storage": [
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint8",
+            "contract": "Initializable",
+            "src": "@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:63",
+            "retypedFrom": "bool"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "0",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:68"
+          },
+          {
+            "label": "_status",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_uint256",
+            "contract": "ReentrancyGuardUpgradeable",
+            "src": "@openzeppelin\\contracts-upgradeable\\security\\ReentrancyGuardUpgradeable.sol:38"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_array(t_uint256)49_storage",
+            "contract": "ReentrancyGuardUpgradeable",
+            "src": "@openzeppelin\\contracts-upgradeable\\security\\ReentrancyGuardUpgradeable.sol:88"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "51",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "ERC721HolderUpgradeable",
+            "src": "@openzeppelin\\contracts-upgradeable\\token\\ERC721\\utils\\ERC721HolderUpgradeable.sol:35"
+          },
+          {
+            "label": "totalValueOutOfLp",
+            "offset": 0,
+            "slot": "101",
+            "type": "t_mapping(t_address,t_uint256)",
+            "contract": "VaultStakingBSC",
+            "src": "contracts\\VaultStakingBSC.sol:30"
+          },
+          {
+            "label": "totalValueInLp",
+            "offset": 0,
+            "slot": "102",
+            "type": "t_mapping(t_address,t_uint256)",
+            "contract": "VaultStakingBSC",
+            "src": "contracts\\VaultStakingBSC.sol:31"
+          },
+          {
+            "label": "pendingValueWithdraw",
+            "offset": 0,
+            "slot": "103",
+            "type": "t_mapping(t_address,t_uint256)",
+            "contract": "VaultStakingBSC",
+            "src": "contracts\\VaultStakingBSC.sol:32"
+          },
+          {
+            "label": "rebaseHistorys",
+            "offset": 0,
+            "slot": "104",
+            "type": "t_mapping(t_address,t_array(t_struct(RebaseHistory)9719_storage)dyn_storage)",
+            "contract": "VaultStakingBSC",
+            "src": "contracts\\VaultStakingBSC.sol:33"
+          },
+          {
+            "label": "chainId",
+            "offset": 0,
+            "slot": "105",
+            "type": "t_uint256",
+            "contract": "VaultStakingBSC",
+            "src": "contracts\\VaultStakingBSC.sol:36"
+          },
+          {
+            "label": "controller",
+            "offset": 0,
+            "slot": "106",
+            "type": "t_contract(IMultiSigController)9638",
+            "contract": "VaultStakingBSC",
+            "src": "contracts\\VaultStakingBSC.sol:39"
+          },
+          {
+            "label": "withdrawNft",
+            "offset": 0,
+            "slot": "107",
+            "type": "t_contract(IWithdrawRequestNFT)9835",
+            "contract": "VaultStakingBSC",
+            "src": "contracts\\VaultStakingBSC.sol:42"
+          },
+          {
+            "label": "whitelistManager",
+            "offset": 0,
+            "slot": "108",
+            "type": "t_contract(IWhitelistManager)9798",
+            "contract": "VaultStakingBSC",
+            "src": "contracts\\VaultStakingBSC.sol:45"
+          },
+          {
+            "label": "vaultManager",
+            "offset": 0,
+            "slot": "109",
+            "type": "t_contract(IVaultManager)9701",
+            "contract": "VaultStakingBSC",
+            "src": "contracts\\VaultStakingBSC.sol:48"
+          },
+          {
+            "label": "requests",
+            "offset": 0,
+            "slot": "110",
+            "type": "t_mapping(t_uint256,t_struct(WithdrawRequest)9714_storage)",
+            "contract": "VaultStakingBSC",
+            "src": "contracts\\VaultStakingBSC.sol:51"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_array(t_struct(RebaseHistory)9719_storage)dyn_storage": {
+            "label": "struct IVaultStakingBSC.RebaseHistory[]",
+            "numberOfBytes": "32"
+          },
+          "t_array(t_uint256)49_storage": {
+            "label": "uint256[49]",
+            "numberOfBytes": "1568"
+          },
+          "t_array(t_uint256)50_storage": {
+            "label": "uint256[50]",
+            "numberOfBytes": "1600"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_contract(IMultiSigController)9638": {
+            "label": "contract IMultiSigController",
+            "numberOfBytes": "20"
+          },
+          "t_contract(IVaultManager)9701": {
+            "label": "contract IVaultManager",
+            "numberOfBytes": "20"
+          },
+          "t_contract(IWhitelistManager)9798": {
+            "label": "contract IWhitelistManager",
+            "numberOfBytes": "20"
+          },
+          "t_contract(IWithdrawRequestNFT)9835": {
+            "label": "contract IWithdrawRequestNFT",
+            "numberOfBytes": "20"
+          },
+          "t_mapping(t_address,t_array(t_struct(RebaseHistory)9719_storage)dyn_storage)": {
+            "label": "mapping(address => struct IVaultStakingBSC.RebaseHistory[])",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_uint256)": {
+            "label": "mapping(address => uint256)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_struct(WithdrawRequest)9714_storage)": {
+            "label": "mapping(uint256 => struct IVaultStakingBSC.WithdrawRequest)",
+            "numberOfBytes": "32"
+          },
+          "t_struct(RebaseHistory)9719_storage": {
+            "label": "struct IVaultStakingBSC.RebaseHistory",
+            "members": [
+              {
+                "label": "rebaseAt",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "amount",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "1"
+              }
+            ],
+            "numberOfBytes": "64"
+          },
+          "t_struct(WithdrawRequest)9714_storage": {
+            "label": "struct IVaultStakingBSC.WithdrawRequest",
+            "members": [
+              {
+                "label": "baseToken",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "shareOfToken",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "amountOfToken",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "2"
+              },
+              {
+                "label": "approved",
+                "type": "t_bool",
+                "offset": 0,
+                "slot": "3"
+              },
+              {
+                "label": "completed",
+                "type": "t_bool",
+                "offset": 1,
+                "slot": "3"
+              }
+            ],
+            "numberOfBytes": "128"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint8": {
+            "label": "uint8",
+            "numberOfBytes": "1"
+          }
+        },
+        "namespaces": {}
+      }
+    },
+    "88b8ddebdba32df2f245970cddfe8efe7709759657adddb6f6d7f0dd6ad21678": {
+      "address": "0x6B72A34587a281C7787546Ec4f4eb1dd37924666",
+      "txHash": "0x6bf66a839dbd7234e523c7b24495dc2919e425d4811626346374a07594ffc272",
+      "layout": {
+        "solcVersion": "0.8.20",
+        "storage": [
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint8",
+            "contract": "Initializable",
+            "src": "@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:63",
+            "retypedFrom": "bool"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "0",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:68"
+          },
+          {
+            "label": "requests",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_array(t_struct(Request)519_storage)dyn_storage",
+            "contract": "MultiSigController",
+            "src": "contracts\\MultiSigController.sol:37"
+          },
+          {
+            "label": "roleRequests",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_array(t_struct(RoleRequest)533_storage)dyn_storage",
+            "contract": "MultiSigController",
+            "src": "contracts\\MultiSigController.sol:38"
+          },
+          {
+            "label": "operators",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_array(t_address)dyn_storage",
+            "contract": "MultiSigController",
+            "src": "contracts\\MultiSigController.sol:40"
+          },
+          {
+            "label": "isOperator",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_mapping(t_address,t_bool)",
+            "contract": "MultiSigController",
+            "src": "contracts\\MultiSigController.sol:41"
+          },
+          {
+            "label": "contracts",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_mapping(t_address,t_bool)",
+            "contract": "MultiSigController",
+            "src": "contracts\\MultiSigController.sol:44"
+          },
+          {
+            "label": "numConfirmationsRequired",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_uint8",
+            "contract": "MultiSigController",
+            "src": "contracts\\MultiSigController.sol:46"
+          },
+          {
+            "label": "admin",
+            "offset": 1,
+            "slot": "6",
+            "type": "t_address",
+            "contract": "MultiSigController",
+            "src": "contracts\\MultiSigController.sol:48"
+          },
+          {
+            "label": "isConfirmed",
+            "offset": 0,
+            "slot": "7",
+            "type": "t_mapping(t_uint32,t_mapping(t_address,t_bool))",
+            "contract": "MultiSigController",
+            "src": "contracts\\MultiSigController.sol:51"
+          },
+          {
+            "label": "isRoleConfirmed",
+            "offset": 0,
+            "slot": "8",
+            "type": "t_mapping(t_uint32,t_mapping(t_address,t_bool))",
+            "contract": "MultiSigController",
+            "src": "contracts\\MultiSigController.sol:54"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_array(t_address)dyn_storage": {
+            "label": "address[]",
+            "numberOfBytes": "32"
+          },
+          "t_array(t_struct(Request)519_storage)dyn_storage": {
+            "label": "struct MultiSigController.Request[]",
+            "numberOfBytes": "32"
+          },
+          "t_array(t_struct(RoleRequest)533_storage)dyn_storage": {
+            "label": "struct MultiSigController.RoleRequest[]",
+            "numberOfBytes": "32"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_bytes_storage": {
+            "label": "bytes",
+            "numberOfBytes": "32"
+          },
+          "t_enum(RoleAction)523": {
+            "label": "enum MultiSigController.RoleAction",
+            "members": [
+              "SET_ADMIN",
+              "ADD_OPERATOR",
+              "REMOVE_OPERATOR"
+            ],
+            "numberOfBytes": "1"
+          },
+          "t_mapping(t_address,t_bool)": {
+            "label": "mapping(address => bool)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint32,t_mapping(t_address,t_bool))": {
+            "label": "mapping(uint32 => mapping(address => bool))",
+            "numberOfBytes": "32"
+          },
+          "t_struct(Request)519_storage": {
+            "label": "struct MultiSigController.Request",
+            "members": [
+              {
+                "label": "contractAddress",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "data",
+                "type": "t_bytes_storage",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "executed",
+                "type": "t_bool",
+                "offset": 0,
+                "slot": "2"
+              },
+              {
+                "label": "numConfirmations",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "3"
+              }
+            ],
+            "numberOfBytes": "128"
+          },
+          "t_struct(RoleRequest)533_storage": {
+            "label": "struct MultiSigController.RoleRequest",
+            "members": [
+              {
+                "label": "role",
+                "type": "t_enum(RoleAction)523",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "account",
+                "type": "t_address",
+                "offset": 1,
+                "slot": "0"
+              },
+              {
+                "label": "numConfirmations",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "executed",
+                "type": "t_bool",
+                "offset": 0,
+                "slot": "2"
+              }
+            ],
+            "numberOfBytes": "96"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint32": {
+            "label": "uint32",
+            "numberOfBytes": "4"
+          },
+          "t_uint8": {
+            "label": "uint8",
+            "numberOfBytes": "1"
+          }
+        },
+        "namespaces": {}
+      }
+    }
+  }
+}

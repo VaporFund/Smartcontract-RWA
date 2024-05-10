@@ -1,0 +1,35 @@
+{
+  "name": "contracts",
+  "version": "0.1.0",
+  "description": "This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "npx hardhat test",
+    "deploy-bnb": "npx hardhat run scripts/mainnet/deployBSCchain.js"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-chai-matchers": "^2.0.1",
+    "@nomicfoundation/hardhat-network-helpers": "1.0.10",
+    "@nomicfoundation/hardhat-toolbox": "^3.0.0",
+    "@nomicfoundation/hardhat-verify": "^1.0.4",
+    "@openzeppelin/contracts": "^4.9.3",
+    "@openzeppelin/contracts-upgradeable": "^4.9.3",
+    "@openzeppelin/hardhat-upgrades": "^2.0.1",
+    "@openzeppelin/merkle-tree": "^1.0.6",
+    "dotenv": "^16.1.4",
+    "ethers": "^6.11.1",
+    "hardhat": "^2.20.1",
+    "hardhat-contract-sizer": "^2.10.0",
+    "hardhat-docgen": "^0.0.0",
+    "hardhat-gas-reporter": "^1.0.10",
+    "hardhat-log-remover": "^2.0.2",
+    "hardhat-tracer": "^2.5.1",
+    "solidity-coverage": "^0.8.4"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "keywords": [],
+  "author": ""
+}

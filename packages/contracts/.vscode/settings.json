@@ -1,0 +1,6 @@
+{
+    "slither.solcPath": "",
+    "slither.hiddenDetectors": [
+        "assert-state-change"
+    ]
+}
