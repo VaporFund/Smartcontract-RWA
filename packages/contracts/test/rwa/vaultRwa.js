@@ -512,4 +512,25 @@ describe("#vault-rwa", () => {
         expect(balanceStableBefore < balanceStableAfter).to.be.true; // Expect balance of stable token to increase
         expect(balanceYieldBefore > balanceYieldAfter).to.be.true; // Expect balance of yield token to decrease
     });
+
+    it("should withdraw redirect with uniswap successful", async function() {
+        // Get the initial balances of stable token and yield token
+        const balanceDepositTokenBefore = await depositToken.balanceOf(bob.address);
+        const balanceYieldBefore = await vpUSYC.balanceOf(bob.address);
+        console.log({ balanceDepositTokenBefore, balanceYieldBefore });
+
+        // Perform the withdrawal with redirect
+        await vault.connect(bob).redirectWithdraw(vpUSYC.target, toStable(0.2), [{ tokenAddress: stableToken.target, poolFee: 3000 }], depositToken.target, 0);
+
+        // Get the balances after the withdrawal
+        const balanceDepositTokenAfter = await depositToken.balanceOf(bob.address);
+        const balanceYieldAfter = await vpUSYC.balanceOf(bob.address);
+        console.log({ balanceDepositTokenAfter, balanceYieldAfter });
+
+        // Verifying the balances have changed as expected
+        expect(balanceDepositTokenBefore < balanceDepositTokenAfter).to.be.true; // Expect balance of stable token to increase
+        expect(balanceYieldBefore > balanceYieldAfter).to.be.true; // Expect balance of yield token to decrease
+    });
+
+
 })

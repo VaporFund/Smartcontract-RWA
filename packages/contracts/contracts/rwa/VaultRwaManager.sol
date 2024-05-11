@@ -55,24 +55,6 @@ contract VaultRwaManager is Initializable {
         return orders[_baseToken];
     }
 
-    function setMinimumDeposit(address _baseToken, uint256 minimumDeposit) external onlyOperator {
-        orders[_baseToken].minimumDeposit = minimumDeposit;
-        emit MinimumDepositSet(_baseToken, minimumDeposit);
-    }
-
-    function setFeeDays(address _baseToken, uint8 newFeeDepositDay, uint8 newFeeWithdrawDay) external onlyOperator {
-        Order storage order = orders[_baseToken];
-        order.delayBuyDay = newFeeDepositDay;
-        order.delaySellDay = newFeeWithdrawDay;
-        emit FeeDaysSet(_baseToken, newFeeDepositDay, newFeeWithdrawDay);
-    }
-
-    function setRedirect(address _baseToken, bool status) external onlyAdmin {
-        Order storage order = orders[_baseToken];
-        order.redirect = status;
-        emit RedirectUpdated(status);
-    }
-
     function setupNewOrder(
         address _baseToken,
         address _pairToken,
@@ -100,23 +82,13 @@ contract VaultRwaManager is Initializable {
     function updateOrder(
         address _baseToken,
         address _pairToken,
-        PlatformType platformType,
-        address platformHelper
+        PlatformType _platformType,
+        address _platformHelper
     ) external onlyAdmin {
-        orders[_baseToken] = Order({
-            baseToken: _baseToken,
-            pairToken: _pairToken,
-            minimumDeposit: 0,
-            delayBuyDay: 0,
-            delaySellDay: 0,
-            beneficialAddress: address(vault),
-            platformType: platformType,
-            platformHelper: platformHelper,
-            active: true,
-            enabled: true,
-            redirect: false
-        });
-
+        Order storage order = orders[_baseToken];
+        order.pairToken = _pairToken;
+        order.platformType = _platformType;
+        order.platformHelper = _platformHelper;
         emit OrderUpdated(_baseToken, _pairToken, address(vault));
     }
 
@@ -128,6 +100,24 @@ contract VaultRwaManager is Initializable {
     function enableOrder(address _baseToken) external onlyOperator {
         require(orders[_baseToken].active, "VaultManager: Invalid order");
         orders[_baseToken].enabled = true;
+    }
+
+    function setMinimumDeposit(address _baseToken, uint256 minimumDeposit) external onlyOperator {
+        orders[_baseToken].minimumDeposit = minimumDeposit;
+        emit MinimumDepositSet(_baseToken, minimumDeposit);
+    }
+
+    function setFeeDays(address _baseToken, uint8 newFeeDepositDay, uint8 newFeeWithdrawDay) external onlyOperator {
+        Order storage order = orders[_baseToken];
+        order.delayBuyDay = newFeeDepositDay;
+        order.delaySellDay = newFeeWithdrawDay;
+        emit FeeDaysSet(_baseToken, newFeeDepositDay, newFeeWithdrawDay);
+    }
+
+    function setRedirect(address _baseToken, bool status) external onlyAdmin {
+        Order storage order = orders[_baseToken];
+        order.redirect = status;
+        emit RedirectUpdated(status);
     }
 
     function createToken(

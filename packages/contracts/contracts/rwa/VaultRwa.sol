@@ -39,7 +39,7 @@ contract VaultRwa is
     bytes32 public constant VAULT_RWA_OPERATOR_ROLE = keccak256("VAULT_RWA_OPERATOR_ROLE");
     bytes32 public constant VAULT_RWA_CALLER_ROLE = keccak256("VAULT_RWA_CALLER_ROLE");
     bytes32 public constant VAULT_RWA_SPENDER_APPROVE_ROLE = keccak256("VAULT_RWA_SPENDER_APPROVE_ROLE");
-    address public constant NATIVE_TOKEN_ADDRESS = 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2;
+    address public constant WETH_TOKEN_ADDRESS = 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2;
 
     mapping(address => uint256) public pendingValueWithdraw;
     // //TODO: remove in product
@@ -123,7 +123,7 @@ contract VaultRwa is
     ) internal returns (uint256 outputAmount) {
         // Transfer tokens to this contract if from token is not the native token
         address fromToken = path[0].tokenAddress;
-        if (NATIVE_TOKEN_ADDRESS != fromToken) {
+        if (WETH_TOKEN_ADDRESS != fromToken) {
             IERC20Upgradeable(fromToken).safeTransferFrom(msg.sender, address(this), amountIn);
             IERC20Upgradeable(fromToken).approve(address(router), amountIn);
         } else {
@@ -170,7 +170,7 @@ contract VaultRwa is
         uint256 targetAmount = _depositAmount;
 
         if (path.length > 0) {
-            if (path[0].tokenAddress != NATIVE_TOKEN_ADDRESS && msg.value > 0) {
+            if (path[0].tokenAddress != WETH_TOKEN_ADDRESS && msg.value > 0) {
                 revert("Vault: Deposits with erc20 tokens do not require payment");
             }
             targetAmount = uniswapTrade(path, pairToken, _depositAmount, _outMinimumAmount);
@@ -300,7 +300,6 @@ contract VaultRwa is
         }
 
         pendingValueWithdraw[request.baseToken] -= request.amountOfToken;
-
         request.completed = true;
 
         emit Withdrawn(_requestId, msg.sender);
@@ -315,22 +314,47 @@ contract VaultRwa is
         uint256 _outMinimumAmount
     ) external whenNotPaused nonReentrant {
         IVaultRwaManager.Order memory order = vaultManager.getOrder(_baseToken);
+
         require(order.active, "Vault: Invalid token");
         require(order.redirect, "Vault: Require order redirect");
         require(IYieldBearingToken(_baseToken).balanceOf(msg.sender) >= _shareAmount, "Vault: Insufficient balance");
 
-        IHashnoteHelper hashnoteHelper = IHashnoteHelper(order.platformHelper);
-
-        uint256 feeShare = 0;
-        if (order.platformType == PlatformType.HASHNOTE && order.delaySellDay > 0) {
-            (uint256 feePercent, ) = hashnoteHelper.calculationPercentInterestPerRound();
-            feeShare = ((_shareAmount * feePercent) / BASIC_POINT) * order.delaySellDay; //~ 5 / 365 percent per day
+        address pairToken = order.pairToken;
+        if (path.length > 0 && path[0].tokenAddress != pairToken) {
+            // ensure from token is pair token
+            revert("Vault: From path token does not support");
         }
+        uint256 share = _shareAmount;
+        uint256 amount = 0;
+        if (order.platformType == PlatformType.HASHNOTE) {
+            IHashnoteHelper hashnoteHelper = IHashnoteHelper(order.platformHelper);
+            uint256 feeShare = 0;
+            if (order.delaySellDay > 0) {
+                (uint256 feePercent, ) = hashnoteHelper.calculationPercentInterestPerRound();
+                feeShare = ((_shareAmount * feePercent) / BASIC_POINT) * order.delaySellDay; //~ 5 / 365 percent per day
+                share = _shareAmount - feeShare; // minus fee first day
+            }
 
-        uint256 share = _shareAmount - feeShare; // minus fee first day
-        uint256 amount = amountForShare(_baseToken, share);
+            amount = amountForShare(_baseToken, share); // get amount after minus fee share
+
+            (uint256 amountYieldToken, , ) = hashnoteHelper.buyPreview(amount); // stable coin to yield coin
+
+            (bool success, bytes memory bytesData) = hashnoteHelper.teller().call(
+                hashnoteHelper.encodeCallSellFor(amountYieldToken, address(this))
+            );
+            if (!success) {
+                assembly {
+                    revert(add(bytesData, 32), mload(bytesData))
+                }
+            }
+            assembly {
+                amount := mload(add(bytesData, 0x20)) //update actual amount
+            }
+        } else {
+            revert("Vault: Platform does not support");
+        }
         require(amount > 0 && amount <= type(uint128).max && share > 0, "Vault: Invalid amount");
-
+        require(IERC20Upgradeable(pairToken).balanceOf(address(this)) >= amount, "Vault: Insufficient liquidity");
         uint256 tokenId = withdrawNft.mint(_baseToken, amount, address(this));
         requests[tokenId] = WithdrawRequest({
             baseToken: _baseToken,
@@ -340,32 +364,16 @@ contract VaultRwa is
             completed: true
         });
 
-        uint256 amountReturn = requests[tokenId].amountOfToken;
+        uint256 amountTransfer = requests[tokenId].amountOfToken;
 
         // Burn shares from user
         IYieldBearingToken(_baseToken).burnShares(msg.sender, _shareAmount);
 
-        address pairToken = order.pairToken;
-        if (path.length > 0 && path[0].tokenAddress != pairToken) {
-            // ensure from token is pair token
-            revert("Vault: From path token not support");
-        }
-        require(IERC20Upgradeable(pairToken).balanceOf(address(this)) >= amountReturn, "Vault: Insufficient liquidity");
-
-        (uint256 amountSell, , ) = hashnoteHelper.buyPreview(amountReturn); // stable coin to yield coin
-        bytes memory dataBuyFor = hashnoteHelper.encodeCallSellFor(amountSell, address(this));
-        (bool success, bytes memory returnData) = hashnoteHelper.teller().call(dataBuyFor);
-        if (!success) {
-            assembly {
-                revert(add(returnData, 32), mload(returnData))
-            }
-        }
-
         if (path.length > 0) {
-            amountReturn = uniswapTrade(path, _targetToken, requests[tokenId].amountOfToken, _outMinimumAmount);
-            IERC20Upgradeable(_targetToken).transfer(msg.sender, amountReturn);
+            amountTransfer = uniswapTrade(path, _targetToken, amountTransfer, _outMinimumAmount); //swap and update
+            IERC20Upgradeable(_targetToken).transfer(msg.sender, amountTransfer);
         } else {
-            IERC20Upgradeable(pairToken).transfer(msg.sender, amountReturn);
+            IERC20Upgradeable(pairToken).transfer(msg.sender, amountTransfer);
         }
 
         emit RequestWithdraw(tokenId, order.baseToken, _shareAmount, order.pairToken, amount, msg.sender);
@@ -403,7 +411,7 @@ contract VaultRwa is
             uint256 totalSTokenOutLp = hashnoteHelper.getTotalStableTokenByYieldToken(address(this));
             return totalSTokenInLp + totalSTokenOutLp - pendingValueWithdraw[_baseToken];
         }
-        revert("Vault: platform does not support");
+        revert("Vault: Platform does not support");
     }
 
     /// @notice the number of shares for a given amount
