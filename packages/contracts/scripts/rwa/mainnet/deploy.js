@@ -1,18 +1,36 @@
 const { ethers, upgrades } = require("hardhat");
 const { verifyImplementContract, verifyContract } = require("../../verifyUtils");
+const { toStable } = require("../../../test/helper/index")
+
 //uniswap : 0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45
 
-//sepolia 
-const USYC_PROXY = "0x38D3A3f8717F4DB1CcB4Ad7D8C755919440848A3"
-const STABLE_PROXY = "0xCaC524BcA292aaade2DF8A05cC58F0a65B1B3bB9"
-const ORACLE_PROXY = "0x35b96d80C72f873bACc44A1fACfb1f5fac064f1a"
-const TELLER_PROXY = "0x8C5d21F2DA253a117E8B89108be8FE781583C1dF"
-const UNISWAP_ROUTER = "0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45" // router not support sophia
+//mainnet 
+const USYC_PROXY = "0x136471a34f6ef19fE571EFFC1CA711fdb8E49f2b"
+const STABLE_PROXY = "0x6c3ea9036406852006290770BEdFcAbA0e23A0e8"
+const ORACLE_PROXY = "0x4c48bcb2160F8e0aDbf9D4F3B034f1e36d1f8b3e"
+const TELLER_PROXY = "0x0a5ea26fdd38cf2acb06dc64198374c337879dab"
+const UNISWAP_ROUTER = "0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45"
+
+
+// //sepolia 
+// const USYC_PROXY = "0x38D3A3f8717F4DB1CcB4Ad7D8C755919440848A3"
+// const STABLE_PROXY = "0xCaC524BcA292aaade2DF8A05cC58F0a65B1B3bB9"
+// const ORACLE_PROXY = "0x35b96d80C72f873bACc44A1fACfb1f5fac064f1a"
+// const TELLER_PROXY = "0x8C5d21F2DA253a117E8B89108be8FE781583C1dF"
+// const UNISWAP_ROUTER = "0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45" // router not support sophia
+
+//wallet config
+const OPERATOR_1 = "0x016D294E93c1225216AC1025f24C9D055DAc1b61"
+const OPERATOR_2 = "0x00f53Dc247e786837C1e6BEAf276fc53fad80Bd8"
+const OPERATOR_3 = "0x60d2f7fCf78941d3991cb8c82069f974b77C736F"
+
+const WORKER = "0x7D41828fBA6C181e7d18c3f7E55b25359841D15F"
+
 
 async function deployContracts() {
-    const [operator, bob, charlie, dave, worker] = await ethers.getSigners()
-    console.log({ operatorAddress: operator.address })
-    console.table({ operator, bob, charlie, dave, worker })
+    const [operator] = await ethers.getSigners()
+    console.table({ operator })
+
     const RoleManage = await ethers.getContractFactory("RoleManage")
     const VaultStaking = await ethers.getContractFactory("VaultRwa")
     const VaultManager = await ethers.getContractFactory("VaultRwaManager")
@@ -73,13 +91,13 @@ async function deployContracts() {
     const tx2 = await roleManage.connect(operator).setRoleAddress(VAULT_RWA_OPERATOR_ROLE, operator.address)
     await tx2.wait()
 
-    const tx3 = await roleManage.connect(operator).setRoleAddress(VAULT_RWA_OPERATOR_ROLE, bob.address)
+    const tx3 = await roleManage.connect(operator).setRoleAddress(VAULT_RWA_OPERATOR_ROLE, OPERATOR_1)
     await tx3.wait()
 
-    const tx4 = await roleManage.connect(operator).setRoleAddress(VAULT_RWA_OPERATOR_ROLE, charlie.address)
+    const tx4 = await roleManage.connect(operator).setRoleAddress(VAULT_RWA_OPERATOR_ROLE, OPERATOR_2)
     await tx4.wait()
 
-    const tx5 = await roleManage.connect(operator).setRoleAddress(VAULT_RWA_OPERATOR_ROLE, dave.address)
+    const tx5 = await roleManage.connect(operator).setRoleAddress(VAULT_RWA_OPERATOR_ROLE, OPERATOR_3)
     await tx5.wait()
 
 
@@ -87,18 +105,15 @@ async function deployContracts() {
     const VAULT_RWA_CALLER_ROLE = vault.VAULT_RWA_CALLER_ROLE()
     const tx6 = await roleManage.connect(operator).setRole(VAULT_RWA_CALLER_ROLE)
     await tx6.wait()
-
     const tx7 = await roleManage.connect(operator).setRoleAddress(VAULT_RWA_CALLER_ROLE, trigger.target)
     await tx7.wait()
 
 
     // set role worker for call trigger contract
     const TRIGGER_CALLER_ROLE = trigger.TRIGGER_CALLER_ROLE()
-
     const tx8 = await roleManage.connect(operator).setRole(TRIGGER_CALLER_ROLE)
     await tx8.wait()
-
-    const tx9 = await roleManage.connect(operator).setRoleAddress(TRIGGER_CALLER_ROLE, worker.address)
+    const tx9 = await roleManage.connect(operator).setRoleAddress(TRIGGER_CALLER_ROLE, WORKER)
     await tx9.wait()
 
     //set manager for vault
@@ -144,9 +159,19 @@ async function deployContracts() {
     const tx16 = await roleManage.connect(operator).setRoleAddress(VAULT_RWA_SPENDER_APPROVE_ROLE, TELLER_PROXY)
     await tx16.wait()
 
+
     // approve all for teller
     const tx14 = await vault.connect(operator).approve(STABLE_PROXY, TELLER_PROXY, ethers.MaxUint256)
     await tx14.wait()
+
+    //set oracle for whitelist
+    const tx17 = await whitelistManager.connect(operator).setOracle(WORKER)
+    await tx17.wait()
+
+
+    // set minimum deposit
+    // const tx18 = await vaultManager.connect(operator).setMinimumDeposit(vpUSYC.target, toStable(100))
+    // await tx18.wait()
 
     const addressB = {
         hashnoteHelperAddress: hashnoteHelper.target,

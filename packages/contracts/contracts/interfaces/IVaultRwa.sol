@@ -3,6 +3,11 @@
 pragma solidity ^0.8.0;
 
 interface IVaultRwa {
+    enum ModeSwap {
+        DEPOSIT,
+        WITHDRAW
+    }
+
     struct WithdrawRequest {
         address baseToken;
         uint256 shareOfToken;

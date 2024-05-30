@@ -104,6 +104,26 @@
       "address": "0x742cBfdb458B12645675bE3066Bc4d4992D69004",
       "txHash": "0x69314c1ab9fde4ef5045b240db46608de82faa9ea6fff9cbbd47279d06961020",
       "kind": "transparent"
+    },
+    {
+      "address": "0x3bf7Db21B28edF0a3a13F9Eb30D731302f02cbcA",
+      "txHash": "0x59bb5db1fba913720033218a17df3201180a533416b76a12f5097477226703ff",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xE62D9F233e269fadc7164107412B26D44Aedf1B7",
+      "txHash": "0x0afb79f1a1fab3d071ae7054442bc867cc3f996c71ad35457800a480b7a172b5",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x42a5d17F2dEf387E42076F18Bd6366F729020D91",
+      "txHash": "0x9f51b83c3ce6d871fb4f4d8e6cc6d272a2634083c697a5e8a228c36b07e1ecce",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xCBBe3423bEA4D4ADe228139d9f6F10F023Eb70A0",
+      "txHash": "0xb1a4e0f6ea0d7caa6174ced9f4ba1232b2fa616c6aa5d5bee5f4389635678b1c",
+      "kind": "transparent"
     }
   ],
   "impls": {
@@ -2851,6 +2871,211 @@
               }
             ],
             "numberOfBytes": "160"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint8": {
+            "label": "uint8",
+            "numberOfBytes": "1"
+          }
+        },
+        "namespaces": {}
+      }
+    },
+    "432135df20d0267e187ab548d30f8fb8307dac56782f79b97f5a097004157a05": {
+      "address": "0x8280C7618d1f2d1648d0B690dFc9486C5Df46b6A",
+      "txHash": "0x67e394a2db9489c24032d940475ddb1602d2cadf17b3b9ff299410d0edf89b04",
+      "layout": {
+        "solcVersion": "0.8.20",
+        "storage": [
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint8",
+            "contract": "Initializable",
+            "src": "@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:63",
+            "retypedFrom": "bool"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "0",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:68"
+          },
+          {
+            "label": "_status",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_uint256",
+            "contract": "ReentrancyGuardUpgradeable",
+            "src": "@openzeppelin\\contracts-upgradeable\\security\\ReentrancyGuardUpgradeable.sol:38"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_array(t_uint256)49_storage",
+            "contract": "ReentrancyGuardUpgradeable",
+            "src": "@openzeppelin\\contracts-upgradeable\\security\\ReentrancyGuardUpgradeable.sol:88"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "51",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "ERC721HolderUpgradeable",
+            "src": "@openzeppelin\\contracts-upgradeable\\token\\ERC721\\utils\\ERC721HolderUpgradeable.sol:35"
+          },
+          {
+            "label": "pendingValueWithdraw",
+            "offset": 0,
+            "slot": "101",
+            "type": "t_mapping(t_address,t_uint256)",
+            "contract": "VaultRwa",
+            "src": "contracts\\rwa\\VaultRwa.sol:44"
+          },
+          {
+            "label": "chainId",
+            "offset": 0,
+            "slot": "102",
+            "type": "t_uint256",
+            "contract": "VaultRwa",
+            "src": "contracts\\rwa\\VaultRwa.sol:47"
+          },
+          {
+            "label": "roleManage",
+            "offset": 0,
+            "slot": "103",
+            "type": "t_contract(IRoleManage)4544",
+            "contract": "VaultRwa",
+            "src": "contracts\\rwa\\VaultRwa.sol:50"
+          },
+          {
+            "label": "withdrawNft",
+            "offset": 0,
+            "slot": "104",
+            "type": "t_contract(IWithdrawRequestNFT)4743",
+            "contract": "VaultRwa",
+            "src": "contracts\\rwa\\VaultRwa.sol:53"
+          },
+          {
+            "label": "whitelistManager",
+            "offset": 0,
+            "slot": "105",
+            "type": "t_contract(IWhitelistManager)4706",
+            "contract": "VaultRwa",
+            "src": "contracts\\rwa\\VaultRwa.sol:56"
+          },
+          {
+            "label": "vaultManager",
+            "offset": 0,
+            "slot": "106",
+            "type": "t_contract(IVaultRwaManager)4682",
+            "contract": "VaultRwa",
+            "src": "contracts\\rwa\\VaultRwa.sol:59"
+          },
+          {
+            "label": "router",
+            "offset": 0,
+            "slot": "107",
+            "type": "t_contract(ISwapRouter02)4991",
+            "contract": "VaultRwa",
+            "src": "contracts\\rwa\\VaultRwa.sol:62"
+          },
+          {
+            "label": "requests",
+            "offset": 0,
+            "slot": "108",
+            "type": "t_mapping(t_uint256,t_struct(WithdrawRequest)4557_storage)",
+            "contract": "VaultRwa",
+            "src": "contracts\\rwa\\VaultRwa.sol:65"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_array(t_uint256)49_storage": {
+            "label": "uint256[49]",
+            "numberOfBytes": "1568"
+          },
+          "t_array(t_uint256)50_storage": {
+            "label": "uint256[50]",
+            "numberOfBytes": "1600"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_contract(IRoleManage)4544": {
+            "label": "contract IRoleManage",
+            "numberOfBytes": "20"
+          },
+          "t_contract(ISwapRouter02)4991": {
+            "label": "contract ISwapRouter02",
+            "numberOfBytes": "20"
+          },
+          "t_contract(IVaultRwaManager)4682": {
+            "label": "contract IVaultRwaManager",
+            "numberOfBytes": "20"
+          },
+          "t_contract(IWhitelistManager)4706": {
+            "label": "contract IWhitelistManager",
+            "numberOfBytes": "20"
+          },
+          "t_contract(IWithdrawRequestNFT)4743": {
+            "label": "contract IWithdrawRequestNFT",
+            "numberOfBytes": "20"
+          },
+          "t_mapping(t_address,t_uint256)": {
+            "label": "mapping(address => uint256)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_struct(WithdrawRequest)4557_storage)": {
+            "label": "mapping(uint256 => struct IVaultRwa.WithdrawRequest)",
+            "numberOfBytes": "32"
+          },
+          "t_struct(WithdrawRequest)4557_storage": {
+            "label": "struct IVaultRwa.WithdrawRequest",
+            "members": [
+              {
+                "label": "baseToken",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "shareOfToken",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "amountOfToken",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "2"
+              },
+              {
+                "label": "approved",
+                "type": "t_bool",
+                "offset": 0,
+                "slot": "3"
+              },
+              {
+                "label": "completed",
+                "type": "t_bool",
+                "offset": 1,
+                "slot": "3"
+              }
+            ],
+            "numberOfBytes": "128"
           },
           "t_uint256": {
             "label": "uint256",

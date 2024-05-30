@@ -87,9 +87,7 @@ module.exports = {
             },
         },
         sepolia: {
-            // url: `https://eth-sepolia.nodereal.io/v1/74f3cd44cce843debff83d0c1168315b`,
-            url: `https://go.getblock.io/e505a902a6e840b6880cd5adb6b82344`,
-
+            url: `https://eth-sepolia.nodereal.io/v1/74f3cd44cce843debff83d0c1168315b`,
             accounts: {
                 mnemonic,
             },

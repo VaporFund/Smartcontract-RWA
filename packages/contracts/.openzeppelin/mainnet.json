@@ -1,0 +1,635 @@
+{
+  "manifestVersion": "3.2",
+  "admin": {
+    "address": "0x6044C3f889b7bCA6C737D41F4b256A95bFdfBEda",
+    "txHash": "0x2fa6bb86e4ac59b0568c050240325bcc54204b8a4039e321f8796db588344d91"
+  },
+  "proxies": [
+    {
+      "address": "0xc0796534790e3b6880B62CC9a15FFAff27ad2272",
+      "txHash": "0x56c43a27138897f669539541c66f85ce00553b76b330b6238eacb06ee06d4640",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xdc9C2e95811b183752A1c5893182904d4fa7E781",
+      "txHash": "0x04b9bbf4eb31ce7f9ef218f21c12ec1531eade575e73b700a563cf3d62b20965",
+      "kind": "transparent"
+    }
+  ],
+  "impls": {
+    "32968cab095ed9c9fd8ce270babb83b5bcc059ed41d9cf465a6a80241a608d50": {
+      "address": "0x9192a54801b20cd90b2eDe45C77feFe35998c34a",
+      "txHash": "0xe857da2bc8c7044b24bbaaf51aeefba2b4d22ac0478eb0ad9b40d8cde247e578",
+      "layout": {
+        "solcVersion": "0.8.20",
+        "storage": [
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint8",
+            "contract": "Initializable",
+            "src": "@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:63",
+            "retypedFrom": "bool"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "0",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:68"
+          },
+          {
+            "label": "paused",
+            "offset": 2,
+            "slot": "0",
+            "type": "t_bool",
+            "contract": "VaultRwaManager",
+            "src": "contracts\\rwa\\VaultRwaManager.sol:32"
+          },
+          {
+            "label": "roleManage",
+            "offset": 3,
+            "slot": "0",
+            "type": "t_contract(IRoleManage)10890",
+            "contract": "VaultRwaManager",
+            "src": "contracts\\rwa\\VaultRwaManager.sol:33"
+          },
+          {
+            "label": "factory",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_contract(ITokenFactory)10923",
+            "contract": "VaultRwaManager",
+            "src": "contracts\\rwa\\VaultRwaManager.sol:34"
+          },
+          {
+            "label": "vault",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_contract(IVaultRwa)11100",
+            "contract": "VaultRwaManager",
+            "src": "contracts\\rwa\\VaultRwaManager.sol:35"
+          },
+          {
+            "label": "bridgeTokens",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_array(t_address)dyn_storage",
+            "contract": "VaultRwaManager",
+            "src": "contracts\\rwa\\VaultRwaManager.sol:36"
+          },
+          {
+            "label": "orders",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_mapping(t_address,t_struct(Order)21365_storage)",
+            "contract": "VaultRwaManager",
+            "src": "contracts\\rwa\\VaultRwaManager.sol:37"
+          },
+          {
+            "label": "limitLpIns",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_mapping(t_address,t_uint256)",
+            "contract": "VaultRwaManager",
+            "src": "contracts\\rwa\\VaultRwaManager.sol:38"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_array(t_address)dyn_storage": {
+            "label": "address[]",
+            "numberOfBytes": "32"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_contract(IRoleManage)10890": {
+            "label": "contract IRoleManage",
+            "numberOfBytes": "20"
+          },
+          "t_contract(ITokenFactory)10923": {
+            "label": "contract ITokenFactory",
+            "numberOfBytes": "20"
+          },
+          "t_contract(IVaultRwa)11100": {
+            "label": "contract IVaultRwa",
+            "numberOfBytes": "20"
+          },
+          "t_enum(PlatformType)11104": {
+            "label": "enum PlatformType",
+            "members": [
+              "HASHNOTE"
+            ],
+            "numberOfBytes": "1"
+          },
+          "t_mapping(t_address,t_struct(Order)21365_storage)": {
+            "label": "mapping(address => struct VaultRwaManager.Order)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_uint256)": {
+            "label": "mapping(address => uint256)",
+            "numberOfBytes": "32"
+          },
+          "t_struct(Order)21365_storage": {
+            "label": "struct VaultRwaManager.Order",
+            "members": [
+              {
+                "label": "baseToken",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "pairToken",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "minimumDeposit",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "2"
+              },
+              {
+                "label": "delayBuyDay",
+                "type": "t_uint8",
+                "offset": 0,
+                "slot": "3"
+              },
+              {
+                "label": "delaySellDay",
+                "type": "t_uint8",
+                "offset": 1,
+                "slot": "3"
+              },
+              {
+                "label": "beneficialAddress",
+                "type": "t_address",
+                "offset": 2,
+                "slot": "3"
+              },
+              {
+                "label": "platformType",
+                "type": "t_enum(PlatformType)11104",
+                "offset": 22,
+                "slot": "3"
+              },
+              {
+                "label": "platformHelper",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "4"
+              },
+              {
+                "label": "active",
+                "type": "t_bool",
+                "offset": 20,
+                "slot": "4"
+              },
+              {
+                "label": "enabled",
+                "type": "t_bool",
+                "offset": 21,
+                "slot": "4"
+              },
+              {
+                "label": "redirect",
+                "type": "t_bool",
+                "offset": 22,
+                "slot": "4"
+              }
+            ],
+            "numberOfBytes": "160"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint8": {
+            "label": "uint8",
+            "numberOfBytes": "1"
+          }
+        },
+        "namespaces": {}
+      }
+    },
+    "432135df20d0267e187ab548d30f8fb8307dac56782f79b97f5a097004157a05": {
+      "address": "0x02D41d19Fc992c58085254d35D689eefc9828Ec2",
+      "txHash": "0x902ef56830542cb8af2cc991c2f6b1fa02454e5fbb2c118985f4dc3f69d56116",
+      "layout": {
+        "solcVersion": "0.8.20",
+        "storage": [
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint8",
+            "contract": "Initializable",
+            "src": "@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:63",
+            "retypedFrom": "bool"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "0",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:68"
+          },
+          {
+            "label": "_status",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_uint256",
+            "contract": "ReentrancyGuardUpgradeable",
+            "src": "@openzeppelin\\contracts-upgradeable\\security\\ReentrancyGuardUpgradeable.sol:38"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_array(t_uint256)49_storage",
+            "contract": "ReentrancyGuardUpgradeable",
+            "src": "@openzeppelin\\contracts-upgradeable\\security\\ReentrancyGuardUpgradeable.sol:88"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "51",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "ERC721HolderUpgradeable",
+            "src": "@openzeppelin\\contracts-upgradeable\\token\\ERC721\\utils\\ERC721HolderUpgradeable.sol:35"
+          },
+          {
+            "label": "pendingValueWithdraw",
+            "offset": 0,
+            "slot": "101",
+            "type": "t_mapping(t_address,t_uint256)",
+            "contract": "VaultRwa",
+            "src": "contracts\\rwa\\VaultRwa.sol:45"
+          },
+          {
+            "label": "chainId",
+            "offset": 0,
+            "slot": "102",
+            "type": "t_uint256",
+            "contract": "VaultRwa",
+            "src": "contracts\\rwa\\VaultRwa.sol:48"
+          },
+          {
+            "label": "roleManage",
+            "offset": 0,
+            "slot": "103",
+            "type": "t_contract(IRoleManage)4544",
+            "contract": "VaultRwa",
+            "src": "contracts\\rwa\\VaultRwa.sol:51"
+          },
+          {
+            "label": "withdrawNft",
+            "offset": 0,
+            "slot": "104",
+            "type": "t_contract(IWithdrawRequestNFT)4743",
+            "contract": "VaultRwa",
+            "src": "contracts\\rwa\\VaultRwa.sol:54"
+          },
+          {
+            "label": "whitelistManager",
+            "offset": 0,
+            "slot": "105",
+            "type": "t_contract(IWhitelistManager)4706",
+            "contract": "VaultRwa",
+            "src": "contracts\\rwa\\VaultRwa.sol:57"
+          },
+          {
+            "label": "vaultManager",
+            "offset": 0,
+            "slot": "106",
+            "type": "t_contract(IVaultRwaManager)4682",
+            "contract": "VaultRwa",
+            "src": "contracts\\rwa\\VaultRwa.sol:60"
+          },
+          {
+            "label": "router",
+            "offset": 0,
+            "slot": "107",
+            "type": "t_contract(ISwapRouter02)4991",
+            "contract": "VaultRwa",
+            "src": "contracts\\rwa\\VaultRwa.sol:63"
+          },
+          {
+            "label": "requests",
+            "offset": 0,
+            "slot": "108",
+            "type": "t_mapping(t_uint256,t_struct(WithdrawRequest)4557_storage)",
+            "contract": "VaultRwa",
+            "src": "contracts\\rwa\\VaultRwa.sol:66"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_array(t_uint256)49_storage": {
+            "label": "uint256[49]",
+            "numberOfBytes": "1568"
+          },
+          "t_array(t_uint256)50_storage": {
+            "label": "uint256[50]",
+            "numberOfBytes": "1600"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_contract(IRoleManage)4544": {
+            "label": "contract IRoleManage",
+            "numberOfBytes": "20"
+          },
+          "t_contract(ISwapRouter02)4991": {
+            "label": "contract ISwapRouter02",
+            "numberOfBytes": "20"
+          },
+          "t_contract(IVaultRwaManager)4682": {
+            "label": "contract IVaultRwaManager",
+            "numberOfBytes": "20"
+          },
+          "t_contract(IWhitelistManager)4706": {
+            "label": "contract IWhitelistManager",
+            "numberOfBytes": "20"
+          },
+          "t_contract(IWithdrawRequestNFT)4743": {
+            "label": "contract IWithdrawRequestNFT",
+            "numberOfBytes": "20"
+          },
+          "t_mapping(t_address,t_uint256)": {
+            "label": "mapping(address => uint256)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_struct(WithdrawRequest)4557_storage)": {
+            "label": "mapping(uint256 => struct IVaultRwa.WithdrawRequest)",
+            "numberOfBytes": "32"
+          },
+          "t_struct(WithdrawRequest)4557_storage": {
+            "label": "struct IVaultRwa.WithdrawRequest",
+            "members": [
+              {
+                "label": "baseToken",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "shareOfToken",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "amountOfToken",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "2"
+              },
+              {
+                "label": "approved",
+                "type": "t_bool",
+                "offset": 0,
+                "slot": "3"
+              },
+              {
+                "label": "completed",
+                "type": "t_bool",
+                "offset": 1,
+                "slot": "3"
+              }
+            ],
+            "numberOfBytes": "128"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint8": {
+            "label": "uint8",
+            "numberOfBytes": "1"
+          }
+        },
+        "namespaces": {}
+      }
+    },
+    "826f2c5197d830c27370d5706f414e21dec0318617322856be9926cc0c2b60e4": {
+      "address": "0x9E22757c9E7bcBF2f12ce7c232bA6F6efa41C012",
+      "txHash": "0x0a818657f2a9dc8b93888da8a125fe94f8e3a795881c21355f1c105e4de14bcd",
+      "layout": {
+        "solcVersion": "0.8.20",
+        "storage": [
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint8",
+            "contract": "Initializable",
+            "src": "@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:63",
+            "retypedFrom": "bool"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "0",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:68"
+          },
+          {
+            "label": "_status",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_uint256",
+            "contract": "ReentrancyGuardUpgradeable",
+            "src": "@openzeppelin\\contracts-upgradeable\\security\\ReentrancyGuardUpgradeable.sol:38"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_array(t_uint256)49_storage",
+            "contract": "ReentrancyGuardUpgradeable",
+            "src": "@openzeppelin\\contracts-upgradeable\\security\\ReentrancyGuardUpgradeable.sol:88"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "51",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "ERC721HolderUpgradeable",
+            "src": "@openzeppelin\\contracts-upgradeable\\token\\ERC721\\utils\\ERC721HolderUpgradeable.sol:35"
+          },
+          {
+            "label": "pendingValueWithdraw",
+            "offset": 0,
+            "slot": "101",
+            "type": "t_mapping(t_address,t_uint256)",
+            "contract": "VaultRwa",
+            "src": "contracts\\rwa\\VaultRwa.sol:44"
+          },
+          {
+            "label": "chainId",
+            "offset": 0,
+            "slot": "102",
+            "type": "t_uint256",
+            "contract": "VaultRwa",
+            "src": "contracts\\rwa\\VaultRwa.sol:47"
+          },
+          {
+            "label": "roleManage",
+            "offset": 0,
+            "slot": "103",
+            "type": "t_contract(IRoleManage)4544",
+            "contract": "VaultRwa",
+            "src": "contracts\\rwa\\VaultRwa.sol:50"
+          },
+          {
+            "label": "withdrawNft",
+            "offset": 0,
+            "slot": "104",
+            "type": "t_contract(IWithdrawRequestNFT)4746",
+            "contract": "VaultRwa",
+            "src": "contracts\\rwa\\VaultRwa.sol:53"
+          },
+          {
+            "label": "whitelistManager",
+            "offset": 0,
+            "slot": "105",
+            "type": "t_contract(IWhitelistManager)4709",
+            "contract": "VaultRwa",
+            "src": "contracts\\rwa\\VaultRwa.sol:56"
+          },
+          {
+            "label": "vaultManager",
+            "offset": 0,
+            "slot": "106",
+            "type": "t_contract(IVaultRwaManager)4685",
+            "contract": "VaultRwa",
+            "src": "contracts\\rwa\\VaultRwa.sol:59"
+          },
+          {
+            "label": "router",
+            "offset": 0,
+            "slot": "107",
+            "type": "t_contract(ISwapRouter02)4994",
+            "contract": "VaultRwa",
+            "src": "contracts\\rwa\\VaultRwa.sol:62"
+          },
+          {
+            "label": "requests",
+            "offset": 0,
+            "slot": "108",
+            "type": "t_mapping(t_uint256,t_struct(WithdrawRequest)4560_storage)",
+            "contract": "VaultRwa",
+            "src": "contracts\\rwa\\VaultRwa.sol:65"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_array(t_uint256)49_storage": {
+            "label": "uint256[49]",
+            "numberOfBytes": "1568"
+          },
+          "t_array(t_uint256)50_storage": {
+            "label": "uint256[50]",
+            "numberOfBytes": "1600"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_contract(IRoleManage)4544": {
+            "label": "contract IRoleManage",
+            "numberOfBytes": "20"
+          },
+          "t_contract(ISwapRouter02)4994": {
+            "label": "contract ISwapRouter02",
+            "numberOfBytes": "20"
+          },
+          "t_contract(IVaultRwaManager)4685": {
+            "label": "contract IVaultRwaManager",
+            "numberOfBytes": "20"
+          },
+          "t_contract(IWhitelistManager)4709": {
+            "label": "contract IWhitelistManager",
+            "numberOfBytes": "20"
+          },
+          "t_contract(IWithdrawRequestNFT)4746": {
+            "label": "contract IWithdrawRequestNFT",
+            "numberOfBytes": "20"
+          },
+          "t_mapping(t_address,t_uint256)": {
+            "label": "mapping(address => uint256)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_struct(WithdrawRequest)4560_storage)": {
+            "label": "mapping(uint256 => struct IVaultRwa.WithdrawRequest)",
+            "numberOfBytes": "32"
+          },
+          "t_struct(WithdrawRequest)4560_storage": {
+            "label": "struct IVaultRwa.WithdrawRequest",
+            "members": [
+              {
+                "label": "baseToken",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "shareOfToken",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "amountOfToken",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "2"
+              },
+              {
+                "label": "approved",
+                "type": "t_bool",
+                "offset": 0,
+                "slot": "3"
+              },
+              {
+                "label": "completed",
+                "type": "t_bool",
+                "offset": 1,
+                "slot": "3"
+              }
+            ],
+            "numberOfBytes": "128"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint8": {
+            "label": "uint8",
+            "numberOfBytes": "1"
+          }
+        },
+        "namespaces": {}
+      }
+    }
+  }
+}

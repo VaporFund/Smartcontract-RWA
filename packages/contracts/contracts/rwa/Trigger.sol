@@ -2,9 +2,9 @@
 pragma solidity 0.8.20;
 
 import "../interfaces/IVaultRwaManager.sol";
-import "../interfaces/hashnote/IHashnoteHelper.sol";
-import "../interfaces/IVaultRwa.sol";
 import "../interfaces/IRoleManage.sol";
+import "../interfaces/IVaultRwa.sol";
+import "../interfaces/hashnote/IHashnoteHelper.sol";
 
 contract Trigger {
     bytes32 public constant TRIGGER_CALLER_ROLE = keccak256("TRIGGER_CALLER_ROLE");

@@ -1,17 +1,70 @@
-# Sample Hardhat Project
+# VaporFund Smart Contracts
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
+This repository contains the smart contracts for VaporFund, a platform designed to extend staking accessibility through methods such as Real World Assets (RWA), Restaking, and traditional staking. By implementing all contracts in one repository, we ensure consistent configuration, ease of maintenance, and streamlined development.
 
-Try running some of the following tasks:
+## Architecture
 
-```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat run scripts/deploy.js
+In this repository, all contracts are implemented together to maintain uniform configuration. This approach simplifies maintenance and development.
+
+### 1. Real World Assets (RWA)
+- Flow for Setup and Invest
+    - `For the mode 'unredirect', the worker implementation will be added later, but manual redirect are possible.`
+
+![RWA Flow](doc-assets/rwa-deposit-flow.png)
+
+
+### 2. Restaking
+- Contracts for bridging across chains, reinvesting rewards, and securing user assets across child and parent chains.
+
+### 3. Staking
+- Contracts for staking tokens on the platform to earn rewards.
+
+## Repository Structure
+
+```plaintext
+contract/
+    ├── interfaces/
+    │   ├── IVault.sol
+    │   └── ...
+    ├── libs/
+    │   ├── Hashnote.sol
+    │   ├── EtherFi.sol
+    │   └── ...
+    ├── rwa/
+    │   └── ...
+    ├── restaking/
+    │   └── ...
+    ├── staking/
+    │   └── ...
+test/
+    ├── rwa/
+    │   ├── hashnoteHelper.js
+    │   └── ...
+    ├── restaking/
+    │   ├── restaking.js
+    │   └── ...
+    ├── staking/
+    │   ├── staking.js
+    │   └── ...
+    └── ...
 ```
+## Referral Websites
+- Visit our website: [VaporFund](https://vaporfund.com/)
+- Visit our documentation website [VaporFund Docs](https://docs.vaporfund.com/)
 
-# Deploy
-run this script to deploy to bsc
-```yarn deploy-bnb --network ftmtestnet```
+## Implement Smart Contracts
+### Real World Asset (RWA) `(deployment for ethereum)`
+- **Vault:** 0xdc9C2e95811b183752A1c5893182904d4fa7E781
+- **Vault Manage:** 0xc0796534790e3b6880B62CC9a15FFAff27ad2272
+- **Whitelist Manage:** 0x97E94C785F94DE64e66745811F1bb7b0193f5f80
+- **Hashnote Helper:** 0xB70cE4DeaA377eAd7cA4aCCd2eBd5B6319057F3B
+- **Hashnote Trigger:** 0x7BDd685DE818e8Ddd8B1fd91BC3Ac219112B16e7
+- **USYT:** 0x0e0cD306EC48CC61CA582a80c63806058920961C
+- **NFT Withdraw:** 0x325F98EA2DBDe2E8045663407Af902b9A24d9193
+### Restaking `(deployment for bsc smart chain)`
+- **Vault:** 0x6bD3F345Da171a2c21e567Fd4C402FE9C26596b4
+- **Vault Manage:** 0x33a3AF5b6CD03191Dac6711217f7Da26bAed96D6
+- **Whitelist Manage:** 0x4A8323C88d11c3e0c05A23810B5881B6c4b024b3
+- **Controller:** 0xA399C8215c7Ea8104bf3e1182762a772F46B8F80
+- **VpEEth:** 0x5fd8702C86543F9d894BA4C044390E8e9411DF4D
+- **NFT Withdraw:** 0x443827D7Bb4b6c8A49cEaC9efB69c233d52893af

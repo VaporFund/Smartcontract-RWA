@@ -150,6 +150,34 @@ describe("#vault-rwa", () => {
 
         await vault.connect(operator).approve(stableToken.target, TELLER_PROXY, ethers.MaxUint256)
     })
+
+
+
+    it("should show error message hex ", async function() {
+        // function show hex to debug
+        const errorHex = []
+        for (const errorMessage of[
+                "AfterHours()",
+                "BadAddress()",
+                "BadAmount()",
+                "ClosedForHoliday()",
+                "ClosedForWeekend()",
+                "InvalidTradingWindow()",
+                "NoAccess()",
+                "NotPermissioned()",
+                "YearNotFound()",
+            ]) {
+            const hex = ethers.toUtf8Bytes(errorMessage);
+            const hash = ethers.keccak256(hex);
+            console.log(errorMessage, hash);
+            errorHex.push({
+                errorMessage,
+                hash
+            })
+        }
+        console.table(errorHex)
+    })
+
     it("should create new order success", async function() {
         // setup an order for eETH 
         await vaultManager.connect(operator).setupNewOrder(vpUSYC.target, stableToken.target, 0, hashnoteHelper.target)
@@ -209,14 +237,26 @@ describe("#vault-rwa", () => {
     it("should withdraw", async function() {
         // withdrawing
         await nft.connect(bob).approve(vault.target, 1);
-        await nft.connect(charlie).approve(vault.target, 2);
+        // await nft.connect(charlie).approve(vault.target, 2);
 
         await vault.connect(bob).withdraw(1, [], stableToken.target, 0);
-        await vault.connect(charlie).withdraw(2, [], stableToken.target, 0);
+        // await vault.connect(charlie).withdraw(2, [], stableToken.target, 0);
 
         // verifying
         expect(await stableToken.balanceOf(bob.address)).to.closeTo(toStable(0.2), toStable(0.21))
-        expect(await stableToken.balanceOf(charlie.address)).to.closeTo(toStable(0.2), toStable(0.21))
+            // expect(await stableToken.balanceOf(charlie.address)).to.closeTo(toStable(0.2), toStable(0.21))
+            // expect(await vault.getTotalPooledEther(vpUSYC.target)).to.equal(toEther(0.3))
+
+    })
+
+    it("should withdraw use swap", async function() {
+        // withdrawing
+        await nft.connect(charlie).approve(vault.target, 2);
+
+        await vault.connect(charlie).withdraw(2, [{ tokenAddress: stableToken.target, poolFee: 3000 }], depositToken.target, 0);
+
+        // verifying
+        expect(await depositToken.balanceOf(charlie.address)).to.closeTo(toStable(0.2), toStable(0.21))
             // expect(await vault.getTotalPooledEther(vpUSYC.target)).to.equal(toEther(0.3))
 
     })
@@ -286,29 +326,6 @@ describe("#vault-rwa", () => {
 
     })
 
-    it("should show error message hex ", async function() {
-        const errorHex = []
-        for (const errorMessage of[
-                "AfterHours()",
-                "BadAddress()",
-                "BadAmount()",
-                "ClosedForHoliday()",
-                "ClosedForWeekend()",
-                "InvalidTradingWindow()",
-                "NoAccess()",
-                "NotPermissioned()",
-                "YearNotFound()",
-            ]) {
-            const hex = ethers.toUtf8Bytes(errorMessage);
-            const hash = ethers.keccak256(hex);
-            console.log(errorMessage, hash);
-            errorHex.push({
-                errorMessage,
-                hash
-            })
-        }
-        console.table(errorHex)
-    })
 
     it("should real mainnet user able buy for", async function() {
         const buyer = "0xed96e247655361031aEE6514cD1b89C7141b59D5"; //mainnet owner whitelist address

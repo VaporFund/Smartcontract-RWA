@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.20;
 
+import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts-upgradeable/security/ReentrancyGuardUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/token/ERC20/IERC20Upgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/token/ERC20/utils/SafeERC20Upgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts-upgradeable/token/ERC721/IERC721Upgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/token/ERC721/utils/ERC721HolderUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/token/ERC721/IERC721ReceiverUpgradeable.sol";
@@ -21,8 +21,8 @@ import "../interfaces/uniswap/ISwapRouter02.sol";
 import "../WithdrawRequestNFT.sol";
 
 /*
- * @title Vault
- * @dev This contract represents a vault for staking assets, facilitating the exchange of staked tokens for base tokens and bridging to staking for rewards.
+ * @title Vault RWA
+ * @dev This contract acts as a secure storage place for assets that users want to stake. When users stake their tokens, they can later exchange them for other tokens (known as base tokens). Additionally, this contract helps users participate in staking programs to earn rewards
  */
 
 contract VaultRwa is
@@ -42,12 +42,6 @@ contract VaultRwa is
     address public constant WETH_TOKEN_ADDRESS = 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2;
 
     mapping(address => uint256) public pendingValueWithdraw;
-    // //TODO: remove in product
-    // struct RebaseHistory {
-    //     uint256 rebaseAt;
-    //     uint256 amount;
-    // }
-    // mapping(address => RebaseHistory[]) public rebaseHistorys;
 
     /// @dev The chain id of the contract
     uint256 public chainId;
@@ -119,12 +113,15 @@ contract VaultRwa is
         TokenPath[] memory path,
         address targetToken,
         uint256 amountIn,
-        uint256 amountOutMinimum
+        uint256 amountOutMinimum,
+        ModeSwap mode
     ) internal returns (uint256 outputAmount) {
         // Transfer tokens to this contract if from token is not the native token
         address fromToken = path[0].tokenAddress;
         if (WETH_TOKEN_ADDRESS != fromToken) {
-            IERC20Upgradeable(fromToken).safeTransferFrom(msg.sender, address(this), amountIn);
+            if (mode == ModeSwap.DEPOSIT) {
+                IERC20Upgradeable(fromToken).safeTransferFrom(msg.sender, address(this), amountIn);
+            }
             IERC20Upgradeable(fromToken).approve(address(router), amountIn);
         } else {
             amountIn = msg.value;
@@ -173,7 +170,7 @@ contract VaultRwa is
             if (path[0].tokenAddress != WETH_TOKEN_ADDRESS && msg.value > 0) {
                 revert("Vault: Deposits with erc20 tokens do not require payment");
             }
-            targetAmount = uniswapTrade(path, pairToken, _depositAmount, _outMinimumAmount);
+            targetAmount = uniswapTrade(path, pairToken, _depositAmount, _outMinimumAmount, ModeSwap.DEPOSIT);
         } else {
             IERC20Upgradeable(pairToken).safeTransferFrom(msg.sender, address(this), targetAmount);
         }
@@ -293,7 +290,7 @@ contract VaultRwa is
         IERC721Upgradeable(address(withdrawNft)).safeTransferFrom(msg.sender, address(this), _requestId);
         uint256 targetAmount = request.amountOfToken;
         if (path.length > 0) {
-            targetAmount = uniswapTrade(path, _targetToken, request.amountOfToken, _outMinimumAmount);
+            targetAmount = uniswapTrade(path, _targetToken, targetAmount, _outMinimumAmount, ModeSwap.WITHDRAW);
             IERC20Upgradeable(_targetToken).transfer(msg.sender, targetAmount);
         } else {
             IERC20Upgradeable(pairToken).transfer(msg.sender, targetAmount);
@@ -370,7 +367,7 @@ contract VaultRwa is
         IYieldBearingToken(_baseToken).burnShares(msg.sender, _shareAmount);
 
         if (path.length > 0) {
-            amountTransfer = uniswapTrade(path, _targetToken, amountTransfer, _outMinimumAmount); //swap and update
+            amountTransfer = uniswapTrade(path, _targetToken, amountTransfer, _outMinimumAmount, ModeSwap.WITHDRAW); //swap and update
             IERC20Upgradeable(_targetToken).transfer(msg.sender, amountTransfer);
         } else {
             IERC20Upgradeable(pairToken).transfer(msg.sender, amountTransfer);
