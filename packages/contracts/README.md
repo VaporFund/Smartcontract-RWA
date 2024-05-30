@@ -10,7 +10,7 @@ In this repository, all contracts are implemented together to maintain uniform c
 - Flow for Setup and Invest
     - `For the mode 'unredirect', the worker implementation will be added later, but manual redirect are possible.`
 
-![RWA Flow](doc-assets/rwa-deposit-flow.png)
+![RWA Flow](packages/contracts/doc-assets/rwa-deposit-flow.png)
 
 
 ### 2. Restaking
