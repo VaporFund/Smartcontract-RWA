@@ -1,4 +1,4 @@
-![VaporFund](packages\contracts\doc-assets\vaporfund.png)
+![VaporFund](packages/contracts/doc-assets/vaporfund.png)
 
 # VaporFund
 VaporFund is a platform designed to extend staking accessibility, offering multiple methods such as Restaking, Real World Assets (RWA), and traditional staking. Our platform helps diversify investment portfolios, providing a simple, safe, and multi-reward investment approach.
