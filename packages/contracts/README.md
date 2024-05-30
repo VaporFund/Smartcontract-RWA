@@ -1,10 +1,9 @@
 # VaporFund Smart Contracts
 
-This repository contains the smart contracts for VaporFund, a platform designed to extend staking accessibility through methods such as Real World Assets (RWA), Restaking, and traditional staking. By implementing all contracts in one repository, we ensure consistent configuration, ease of maintenance, and streamlined development.
+This repository contains the smart contracts for VaporFund, a platform designed to extend staking accessibility through methods such as Real World Assets (RWA), Restaking, and traditional staking. 
 
 ## Architecture
-
-In this repository, all contracts are implemented together to maintain uniform configuration. This approach simplifies maintenance and development.
+By implementing all contracts in one repository, we ensure consistent configuration, ease of maintenance, and streamlined development.
 
 ### 1. Real World Assets (RWA)
 - Flow for Setup and Invest
