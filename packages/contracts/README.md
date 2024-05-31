@@ -47,9 +47,6 @@ test/
     │   └── ...
     └── ...
 ```
-## Referral Websites
-- Visit our website: [VaporFund](https://vaporfund.com/)
-- Visit our documentation website [VaporFund Docs](https://docs.vaporfund.com/)
 
 ## Implement Smart Contracts
 ### Real World Asset (RWA) `(deployment for ethereum)`
