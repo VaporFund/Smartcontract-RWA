@@ -11,6 +11,39 @@ By implementing all contracts in one repository, we ensure consistent configurat
 
 ![RWA Flow](doc-assets/rwa-deposit-flow.png)
 
+- Role Manage Details
+    - **`Recommend using a multisig wallet such as Safe Wallet, Design Wallet, or MPCVault Wallet for vault management.`**
+    - To configure roles, go to the role manage contract.
+    - **Owner**
+        - Can set addresses for the Super Admin and other roles.
+        - Should use a multisig wallet for security.
+    - **Supper admin**
+        - Can set roles and addresses for those roles.
+        - Should use a multisig wallet for security.
+        - Can set vault managers and whitelist managers for significant upgrades to the vault contract.
+        - Has exclusive permission to call the `approve` function in the vault contract.
+        - If using a multisig wallet, the Owner and Super Admin can be the same address.
+    - **VAULT_RWA_CALLER_ROLE**
+        - ***Role byte32:*** `0xcad85a693c97aea9a159eddfc215e76c511f55b9d317a82b23c4141b078c64c7`
+        - Allows external contracts to call logic in the vault contract. This is potentially dangerous if the  external contracts are not secure.
+        - Should be used for triggering automated deposits or withdrawals.
+    - **VAULT_RWA_OPERATOR_ROLE**
+        - ***Role byte32:*** `0x68d58977296b53c00176808dba3062fd920d6fba9d34daab485b3a31b2afedbb`
+        - Can approve withdrawal requests in the vault contract.
+        - Can set up, enable, and disable new orders.
+        - Can set minimum deposit amounts.
+        - Can set delay fees for deposits.
+        - Can configure redirection modes for deposits or withdrawals.
+        - Can create new tokens in the vault management contract.
+    - **VAULT_RWA_SPENDER_APPROVE_ROLE**
+        - ***Role byte32:*** `0x0e6e592b6b5bc62e7d850078c0c85c87d354122e248b1884918dacf86c7996da`
+        - This is a highly sensitive role, allowing another contract to use assets in the contract.
+        - Intended for third-party use or emergency situations to withdraw assets externally.
+    - **TRIGGER_CALLER_ROLE**
+        - ***Role byte32:*** `0x28fd5ea3f168a16e1dc653b4f708cde55b68b4990604c0be4dd11376bf3de13d`
+        - Allows any wallet to call triggers.
+        - Intended for workers or manual redirection tasks.
+
 
 ### 2. Restaking
 - Contracts for bridging across chains, reinvesting rewards, and securing user assets across child and parent chains.
@@ -52,6 +85,7 @@ test/
 ### Real World Asset (RWA) `(deployment for ethereum)`
 - **Vault:** 0xdc9C2e95811b183752A1c5893182904d4fa7E781
 - **Vault Manage:** 0xc0796534790e3b6880B62CC9a15FFAff27ad2272
+- **Role Manage:** 0xA62C5631A7e6F88d0E1F60ca6fdfE8DF2aD249c8
 - **Whitelist Manage:** 0x97E94C785F94DE64e66745811F1bb7b0193f5f80
 - **Hashnote Helper:** 0xB70cE4DeaA377eAd7cA4aCCd2eBd5B6319057F3B
 - **Hashnote Trigger:** 0x7BDd685DE818e8Ddd8B1fd91BC3Ac219112B16e7
