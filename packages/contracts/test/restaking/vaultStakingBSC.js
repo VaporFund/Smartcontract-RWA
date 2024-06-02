@@ -3,7 +3,7 @@ const { expect } = require("chai")
 const { toEther, fromEther } = require("../helper")
 const { StandardMerkleTree } = require("@openzeppelin/merkle-tree"); // Change import to require
 
-describe("#vault-staking", () => {
+describe("#vault-staking-bsc", () => {
 
     let controller
     let vault

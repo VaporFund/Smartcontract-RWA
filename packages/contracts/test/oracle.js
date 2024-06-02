@@ -85,7 +85,7 @@ describe("#oracle", () => {
         const submitId = 0;
         await oracle.connect(confirmer2).confirmSubmit(submitId);
         const data = await oracle.getData(tokenA, tokenB);
-        console.log(data);
+
         expect(data[0]).to.equal(BigInt(100)); // Check apr
         expect(data[1]).to.equal(BigInt(200)); // Check totalShare
         expect(data[2]).to.equal(BigInt(300)); // Check totalValueOfLp

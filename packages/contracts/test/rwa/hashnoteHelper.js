@@ -3,10 +3,10 @@ const helpers = require("@nomicfoundation/hardhat-toolbox/network-helpers")
 const { expect } = require("chai")
 const { toEther, fromEther } = require("../helper")
 
-const USYC_PROXY = "0x38D3A3f8717F4DB1CcB4Ad7D8C755919440848A3"
-const STABLE_PROXY = "0xCaC524BcA292aaade2DF8A05cC58F0a65B1B3bB9"
-const ORACLE_PROXY = "0x35b96d80C72f873bACc44A1fACfb1f5fac064f1a"
-const TELLER_PROXY = "0x8C5d21F2DA253a117E8B89108be8FE781583C1dF"
+const USYC_PROXY = "0x136471a34f6ef19fE571EFFC1CA711fdb8E49f2b"
+const STABLE_PROXY = "0x6c3ea9036406852006290770BEdFcAbA0e23A0e8"
+const ORACLE_PROXY = "0x4c48bcb2160F8e0aDbf9D4F3B034f1e36d1f8b3e"
+const TELLER_PROXY = "0x0a5EA26fdD38CF2Acb06Dc64198374C337879DAb"
 
 describe("#hashnote-helper", () => {
 

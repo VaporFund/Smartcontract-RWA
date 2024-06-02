@@ -27,7 +27,7 @@ describe("#multiSignController", () => {
 
         // controller = await MultiSigController.deploy([alice.address, bob.address], 2)
         controller = await upgrades.deployProxy(MultiSigController, [
-            [alice.address, bob.address], 2
+            alice.address, [alice.address, bob.address], 2
         ]);
         callme = await CallMe.deploy(controller.target)
     })
@@ -61,9 +61,6 @@ describe("#multiSignController", () => {
 
         const requestAddVincent = await controller.getRoleRequestCount()
         await controller.connect(alice).submitRoleRequest(Role.ADD_OPERATOR, vincent.address)
-
-        console.log({ requestAddCharlie, requestAddDave, requestAddVincent })
-
 
         await controller.connect(alice).confirmRoleRequest(requestAddCharlie)
         await controller.connect(bob).confirmRoleRequest(requestAddCharlie)

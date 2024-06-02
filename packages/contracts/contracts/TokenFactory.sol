@@ -1,9 +1,8 @@
-//SPDX-License-Identifier: MIT
-
+// SPDX-License-Identifier: MIT
 pragma solidity 0.8.20;
 
-// import "./utility/ElasticToken.sol";
-// import "./interfaces/IElasticToken.sol";
+import "./utility/ElasticToken.sol";
+import "./interfaces/IElasticToken.sol";
 import "./utility/YieldBearingToken.sol";
 import "./interfaces/IYieldBearingToken.sol";
 
@@ -20,17 +19,17 @@ contract TokenFactory {
      */
     // deploy in ethereum dont need rebase token
 
-    // function createToken(
-    //     string memory tokenName,
-    //     string memory tokenSymbol,
-    //     uint8 tokenDecimals,
-    //     address owner
-    // ) external returns (IElasticToken newToken) {
-    //     ElasticToken mintableToken = new ElasticToken(tokenName, tokenSymbol, tokenDecimals, owner);
-    //     newToken = IElasticToken(address(mintableToken));
+    function createToken(
+        string memory tokenName,
+        string memory tokenSymbol,
+        uint8 tokenDecimals,
+        address owner
+    ) external returns (IElasticToken newToken) {
+        ElasticToken mintableToken = new ElasticToken(tokenName, tokenSymbol, tokenDecimals, owner);
+        newToken = IElasticToken(address(mintableToken));
 
-    //     emit TokenCreated(address(newToken));
-    // }
+        emit TokenCreated(address(newToken));
+    }
 
     function createYieldBearingToken(
         string memory tokenName,

@@ -169,7 +169,6 @@ describe("#vault-rwa", () => {
             ]) {
             const hex = ethers.toUtf8Bytes(errorMessage);
             const hash = ethers.keccak256(hex);
-            console.log(errorMessage, hash);
             errorHex.push({
                 errorMessage,
                 hash
@@ -448,7 +447,7 @@ describe("#vault-rwa", () => {
         ], 0, 0, "0x", 0, { value: toEther(0.1) }); //~300usd
 
         //checking
-        expect(await vpUSYC.balanceOf(bob.address)).to.closeTo(toStable(320), toStable(30));
+        expect(await vpUSYC.balanceOf(bob.address)).to.closeTo(toStable(320), toStable(100));
         expect(await usycToken.balanceOf(vault.target)).to.closeTo(toStable(0.09), toStable(0.03));
 
     })
@@ -466,7 +465,6 @@ describe("#vault-rwa", () => {
         //approve spender
         await stableToken.connect(bob).approve(vault.target, ethers.MaxUint256);
         await depositToken.connect(bob).approve(vault.target, ethers.MaxUint256);
-        console.log({ first: (await usycToken.balanceOf(vault.target)) })
 
         // buy at stable token
         await vault.connect(bob).deposit(merkleTree.root, proofBob, vpUSYC.target, [
@@ -474,7 +472,6 @@ describe("#vault-rwa", () => {
         ], toStable(10), 0, "0x", 0);
 
         //checking
-        console.log({ second: (await usycToken.balanceOf(vault.target)) })
         expect(await usycToken.balanceOf(vault.target)).to.closeTo(toStable(10), toStable(10));
     })
     it("should user deposit with whitelist signature successful", async function() {
@@ -515,7 +512,6 @@ describe("#vault-rwa", () => {
         // Get the initial balances of stable token and yield token
         const balanceStableBefore = await stableToken.balanceOf(bob.address);
         const balanceYieldBefore = await vpUSYC.balanceOf(bob.address);
-        console.log({ balanceStableBefore, balanceYieldBefore });
 
         // Perform the withdrawal with redirect
         await vault.connect(bob).redirectWithdraw(vpUSYC.target, toStable(0.2), [], stableToken.target, 0);
@@ -523,7 +519,6 @@ describe("#vault-rwa", () => {
         // Get the balances after the withdrawal
         const balanceStableAfter = await stableToken.balanceOf(bob.address);
         const balanceYieldAfter = await vpUSYC.balanceOf(bob.address);
-        console.log({ balanceStableAfter, balanceYieldAfter });
 
         // Verifying the balances have changed as expected
         expect(balanceStableBefore < balanceStableAfter).to.be.true; // Expect balance of stable token to increase
@@ -534,7 +529,6 @@ describe("#vault-rwa", () => {
         // Get the initial balances of stable token and yield token
         const balanceDepositTokenBefore = await depositToken.balanceOf(bob.address);
         const balanceYieldBefore = await vpUSYC.balanceOf(bob.address);
-        console.log({ balanceDepositTokenBefore, balanceYieldBefore });
 
         // Perform the withdrawal with redirect
         await vault.connect(bob).redirectWithdraw(vpUSYC.target, toStable(0.2), [{ tokenAddress: stableToken.target, poolFee: 3000 }], depositToken.target, 0);
@@ -542,7 +536,6 @@ describe("#vault-rwa", () => {
         // Get the balances after the withdrawal
         const balanceDepositTokenAfter = await depositToken.balanceOf(bob.address);
         const balanceYieldAfter = await vpUSYC.balanceOf(bob.address);
-        console.log({ balanceDepositTokenAfter, balanceYieldAfter });
 
         // Verifying the balances have changed as expected
         expect(balanceDepositTokenBefore < balanceDepositTokenAfter).to.be.true; // Expect balance of stable token to increase

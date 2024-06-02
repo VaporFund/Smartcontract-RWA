@@ -8,7 +8,7 @@ const LIQUIDITY_POOL_PROXY = "0x308861a430be4cce5502d0a12724771fc6daf216"
 const NFT_PROXY = "0x7d5706f6ef3F89B3951E23e557CDFBC3239D4E2c"
 
 
-describe("#vault-staking", () => {
+describe("#vault-staking-eth", () => {
     let controller
     let vault
     let forwarder
@@ -32,9 +32,7 @@ describe("#vault-staking", () => {
 
 
         //deploy controller
-        controller = await upgrades.deployProxy(MultiSigController, [
-            [operator.address, bob.address, charlie.address, dave.address], 2
-        ]);
+        controller = await upgrades.deployProxy(MultiSigController, [operator.address, [operator.address, bob.address, charlie.address, dave.address], 2]);
 
         //deploy vault
         vault = await upgrades.deployProxy(VaultStaking, [1, controller.target]);
@@ -111,7 +109,7 @@ describe("#vault-staking", () => {
     it("should operator claim successful", async function() {
         const currentRequestId = await controller.getRequestCount();
         const nftPending = await vault.getPendingClaims(EETH_PROXY)
-        console.log(nftPending)
+        console.log({ nftPending })
 
         // request stake
         await forwarder.requestClaimWithdraw(1, nftPending[0])
@@ -122,7 +120,7 @@ describe("#vault-staking", () => {
         await controller.connect(charlie).executeRequest(currentRequestId)
 
         const totalClaimOf = await vault.getTotalClaimOf(1, 1);
-        console.log(totalClaimOf)
+        console.log({ totalClaimOf })
 
         //TODO: need from etherfi
 

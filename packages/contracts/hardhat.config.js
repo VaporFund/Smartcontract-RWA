@@ -81,13 +81,13 @@ module.exports = {
             },
         },
         ethereum: {
-            url: `https://eth-mainnet.nodereal.io/v1/2456fa948a554790b9b94187e55284c5`,
+            url: `https://eth-mainnet.nodereal.io/v1/${process.env.NODEREAL_KEY}`,
             accounts: {
                 mnemonic,
             },
         },
         sepolia: {
-            url: `https://eth-sepolia.nodereal.io/v1/74f3cd44cce843debff83d0c1168315b`,
+            url: `https://eth-sepolia.nodereal.io/v1/${process.env.NODEREAL_KEY}`,
             accounts: {
                 mnemonic,
             },
