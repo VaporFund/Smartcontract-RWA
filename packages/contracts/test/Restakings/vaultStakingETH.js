@@ -109,7 +109,8 @@ describe("#vault-staking-eth", () => {
     it("should operator claim successful", async function() {
         const currentRequestId = await controller.getRequestCount();
         const nftPending = await vault.getPendingClaims(EETH_PROXY)
-        console.log({ nftPending })
+
+        expect([typeof nftPending[0], typeof nftPending[1]]).to.deep.equals(["bigint", "bigint"]);
 
         // request stake
         await forwarder.requestClaimWithdraw(1, nftPending[0])
@@ -117,10 +118,12 @@ describe("#vault-staking-eth", () => {
         // signing
         await controller.connect(operator).confirmRequest(currentRequestId)
         await controller.connect(bob).confirmRequest(currentRequestId)
-        await controller.connect(charlie).executeRequest(currentRequestId)
 
-        const totalClaimOf = await vault.getTotalClaimOf(1, 1);
-        console.log({ totalClaimOf })
+        //TODO: need from etherfi
+        // await controller.connect(charlie).executeRequest(currentRequestId)
+
+        // const totalClaimOf = await vault.getTotalClaimOf(1, 1);
+        // console.log({ totalClaimOf })
 
         //TODO: need from etherfi
 

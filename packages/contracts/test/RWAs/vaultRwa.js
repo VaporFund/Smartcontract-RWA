@@ -260,7 +260,7 @@ describe("#vault-rwa", () => {
 
     })
 
-    it("mock permission for buyer", async function() {
+    it("should mock permission for buyer", async function() {
 
         const addressOwnerWhitelist = "0xeE89a9eE62a5cC8a1FF4e9566ECe542856fE1C6D"; //mainnet owner whitelist address
         // const addressOwnerWhitelist = "0x8c1E7aB380bcBb4ed55A9402fb87F826C1ac5c82"; //sepolia owner whitelist address

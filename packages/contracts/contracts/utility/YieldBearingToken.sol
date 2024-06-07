@@ -2,7 +2,7 @@
 pragma solidity 0.8.20;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "../interfaces/IVaultStakingBSC.sol";
+import "../interfaces/IVaultRwa.sol";
 import "./Ownable.sol";
 
 /*
@@ -20,7 +20,7 @@ contract YieldBearingToken is IERC20, Ownable {
     uint256 public totalShares;
     mapping(address => uint256) public shares;
     mapping(address => mapping(address => uint256)) public allowances;
-    IVaultStakingBSC public vault;
+    IVaultRwa public vault;
 
     error InvalidAmount();
     error SendFail();
@@ -31,7 +31,7 @@ contract YieldBearingToken is IERC20, Ownable {
         name = _name;
         symbol = _symbol;
         decimals = _decimals;
-        vault = IVaultStakingBSC(_owner);
+        vault = IVaultRwa(_owner);
     }
 
     function mintShares(address _user, uint256 _share) external onlyOwner {

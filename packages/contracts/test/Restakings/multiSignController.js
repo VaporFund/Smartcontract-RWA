@@ -1,7 +1,7 @@
 const { ethers } = require("hardhat")
 const { expect } = require("chai")
 
-describe("#multiSignController", () => {
+describe("#multi-sign-controller", () => {
 
     let controller
     let callme
@@ -25,7 +25,6 @@ describe("#multiSignController", () => {
         const MultiSigController = await ethers.getContractFactory("MultiSigController")
         const CallMe = await ethers.getContractFactory("CallMe")
 
-        // controller = await MultiSigController.deploy([alice.address, bob.address], 2)
         controller = await upgrades.deployProxy(MultiSigController, [
             alice.address, [alice.address, bob.address], 2
         ]);

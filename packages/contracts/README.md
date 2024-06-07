@@ -98,3 +98,24 @@ test/
 - **Controller:** 0xA399C8215c7Ea8104bf3e1182762a772F46B8F80
 - **VpEEth:** 0x5fd8702C86543F9d894BA4C044390E8e9411DF4D
 - **NFT Withdraw:** 0x443827D7Bb4b6c8A49cEaC9efB69c233d52893af
+
+
+## Installation
+To install and use the contracts, follow these steps:
+1. **Clone the repository:**
+    ```bash
+    git clone https://github.com/VaporFund/Smartcontract-RWA
+    cd ./Smartcontract-RWA/packages/contracts
+    ```
+2. **Install dependencies:**
+    ```bash
+    npm install
+    ```
+3. **Compile the contracts:**
+    ```bash
+    npx hardhat compile
+    ```
+4. **Run the tests:**
+    ```bash
+    npx hardhat test
+    ```

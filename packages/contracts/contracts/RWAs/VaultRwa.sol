@@ -152,7 +152,7 @@ contract VaultRwa is
         address _baseToken, // base token
         TokenPath[] memory path, // path to swap
         uint256 _depositAmount, // input deposit
-        uint256 _outMinimumAmount, // output after swap
+        uint256 _outMinimumAmount, // output after swap require
         bytes memory _signature, // for whitelist
         uint256 _signatureExpTime // for whitelist
     ) external payable whenNotPaused nonReentrant returns (uint256) {
@@ -219,7 +219,7 @@ contract VaultRwa is
         if (order.platformType == PlatformType.HASHNOTE && order.delaySellDay > 0) {
             IHashnoteHelper hashnoteHelper = IHashnoteHelper(order.platformHelper);
             (uint256 feePercent, ) = hashnoteHelper.calculationPercentInterestPerRound();
-            feeShare = ((_shareAmount * feePercent) / BASIC_POINT) * order.delaySellDay; //~ 5 / 365 percent per day
+            feeShare = ((_shareAmount * feePercent) / BASIC_POINT) * order.delaySellDay; //~ 5 / 365 percent for delay day
         }
 
         uint256 share = _shareAmount - feeShare; // minus fee first day
@@ -328,7 +328,7 @@ contract VaultRwa is
             uint256 feeShare = 0;
             if (order.delaySellDay > 0) {
                 (uint256 feePercent, ) = hashnoteHelper.calculationPercentInterestPerRound();
-                feeShare = ((_shareAmount * feePercent) / BASIC_POINT) * order.delaySellDay; //~ 5 / 365 percent per day
+                feeShare = ((_shareAmount * feePercent) / BASIC_POINT) * order.delaySellDay; //~ 5 / 365 percent for depay day
                 share = _shareAmount - feeShare; // minus fee first day
             }
 
@@ -446,7 +446,7 @@ contract VaultRwa is
         if (_platformType == PlatformType.HASHNOTE && _delayBuyDay > 0) {
             IHashnoteHelper hashnoteHelper = IHashnoteHelper(_platformHelper);
             (uint256 feePercent, ) = hashnoteHelper.calculationPercentInterestPerRound();
-            feeShare = ((share * feePercent) / BASIC_POINT) * _delayBuyDay; //~ 5 / 365 percent per day
+            feeShare = ((share * feePercent) / BASIC_POINT) * _delayBuyDay; //~ 5 / 365 percent per delay day
         }
 
         share -= feeShare; // minus fee first day
