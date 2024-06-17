@@ -5,24 +5,30 @@ const { StandardMerkleTree } = require("@openzeppelin/merkle-tree"); // Change i
 const helpers = require("@nomicfoundation/hardhat-toolbox/network-helpers");
 const { generateWhiteSignature } = require("../whitelistManager");
 
-//change rpc to mainnet to test this
-//mainnet
+// set mode for testing between deposit with pyusd or usdc
+const PYUSD_MODE = true
+
+// ethereum
 const USYC_PROXY = "0x136471a34f6ef19fE571EFFC1CA711fdb8E49f2b"
 const PYUSD_PROXY = "0x6c3ea9036406852006290770BEdFcAbA0e23A0e8"
-const ORACLE_PROXY = "0x4c48bcb2160F8e0aDbf9D4F3B034f1e36d1f8b3e"
-const TELLER_PROXY = "0x0a5EA26fdD38CF2Acb06Dc64198374C337879DAb"
+const USDC_PROXY = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
+
+// check documentation for get exactly address  `https://usyc.docs.hashnote.com/getting-started/smart-contract-addresses`
+const ORACLE_PROXY = PYUSD_MODE ? "0x4c48bcb2160F8e0aDbf9D4F3B034f1e36d1f8b3e" : "0x4c48bcb2160F8e0aDbf9D4F3B034f1e36d1f8b3e"
+const TELLER_PROXY = PYUSD_MODE ? "0x0a5EA26fdD38CF2Acb06Dc64198374C337879DAb" : "0x5C73E1cfdD85b7f1d608F7F7736fC8C653513B7A"
 const HASHNOTE_WHITELIST_PROXY = "0xCEDAfE1EaA250DA15c434A54ece8BA1702876e3A"
 const HASHNOTE_AUTHORITY_PROXY = "0x470f3b37B9B20E13b0A2a5965Df6bD3f9640DFB4"
-const USDC = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
-const WETH9_ADDRESS = "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"
 const UNISWAP_ROUTER = "0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45"
+const WETH9_ADDRESS = "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"
 
-//https://github.com/Uniswap/v3-periphery/blob/v1.0.0/testnet-deploys.md
+
+// https://github.com/Uniswap/v3-periphery/blob/v1.0.0/testnet-deploys.md
 // sophia
 // const USYC_PROXY = "0x38D3A3f8717F4DB1CcB4Ad7D8C755919440848A3"
 // const PYUSD_PROXY = "0x1c7d4b196cb0c7b01d743fbc6116a902379c7238"
 // const ORACLE_PROXY = "0x35b96d80C72f873bACc44A1fACfb1f5fac064f1a"
 // const TELLER_PROXY = "0xc7EAAA902FD0896d8807bFc6D8887ee27795bA3D"
+
 describe("#vault-rwa", () => {
     let yieldTokenTeller
     let roleManage
@@ -49,17 +55,28 @@ describe("#vault-rwa", () => {
     let merkleTree
 
     before(async() => {
-
         [operator, bob, charlie, dave, worker, unwhitelist] = await ethers.getSigners()
 
-        const ownerPyUsdWallet = "0xCFFAd3200574698b78f32232aa9D63eABD290703"; // Paxos: Treasury
-        await helpers.impersonateAccount(ownerPyUsdWallet);
-        pyUsdWallet = await ethers.getSigner(ownerPyUsdWallet);
+        if (PYUSD_MODE) {
+            const ownerPyUsdWallet = "0xCFFAd3200574698b78f32232aa9D63eABD290703"; // PYUSD provider
+            await helpers.impersonateAccount(ownerPyUsdWallet);
+            pyUsdWallet = await ethers.getSigner(ownerPyUsdWallet);
+        } else {
+            const ownerUsdcWallet = "0x51edf02152ebfb338e03e30d65c15fbf06cc9ecc"; // USDC_PROXY provider
+            await helpers.impersonateAccount(ownerUsdcWallet);
+            pyUsdWallet = await ethers.getSigner(ownerUsdcWallet);
+        }
 
+        if (PYUSD_MODE) {
+            const ownerStartWallet = "0x89e51fA8CA5D66cd220bAed62ED01e8951aa7c40"; // USDC_PROXY provider
+            await helpers.impersonateAccount(ownerStartWallet);
+            startWallet = await ethers.getSigner(ownerStartWallet);
+        } else {
+            const ownerStartWallet = "0xCFFAd3200574698b78f32232aa9D63eABD290703"; // PYUSD provider
+            await helpers.impersonateAccount(ownerStartWallet);
+            startWallet = await ethers.getSigner(ownerStartWallet);
+        }
 
-        const ownerStartWallet = "0x89e51fA8CA5D66cd220bAed62ED01e8951aa7c40"; // Paxos: Treasury
-        await helpers.impersonateAccount(ownerStartWallet);
-        startWallet = await ethers.getSigner(ownerStartWallet);
 
         const RoleManage = await ethers.getContractFactory("RoleManage")
         const VaultStaking = await ethers.getContractFactory("VaultRwa")
@@ -70,7 +87,7 @@ describe("#vault-rwa", () => {
         const HashnoteHelperFactory = await ethers.getContractFactory("HashnoteHelper")
 
         //deploy hashnoteHelper
-        hashnoteHelper = await HashnoteHelperFactory.deploy(USYC_PROXY, PYUSD_PROXY, ORACLE_PROXY, TELLER_PROXY);
+        hashnoteHelper = await HashnoteHelperFactory.deploy(USYC_PROXY, PYUSD_MODE ? PYUSD_PROXY : USDC_PROXY, ORACLE_PROXY, TELLER_PROXY);
 
         //deploy roleManage
         roleManage = await RoleManage.deploy(operator.address);
@@ -137,7 +154,7 @@ describe("#vault-rwa", () => {
         usycToken = await ethers.getContractAt("IYieldToken", USYC_PROXY)
 
         // get stable contract
-        stableToken = await ethers.getContractAt("IPYUSDImplementation", PYUSD_PROXY)
+        stableToken = await ethers.getContractAt("IPYUSDImplementation", PYUSD_MODE ? PYUSD_PROXY : USDC_PROXY)
 
         // get whitelist manage contract
         hashnoteWhitelistManager = await ethers.getContractAt("IHashnoteWhitelistManager", HASHNOTE_WHITELIST_PROXY)
@@ -146,7 +163,7 @@ describe("#vault-rwa", () => {
         hashnoteAuthorityManager = await ethers.getContractAt("IHashnoteRolesAuthority", HASHNOTE_AUTHORITY_PROXY)
 
         // get contract for direct swap deposit
-        depositToken = await ethers.getContractAt("IWETH9", USDC)
+        depositToken = await ethers.getContractAt("IWETH9", PYUSD_MODE ? USDC_PROXY : PYUSD_PROXY)
 
         await vault.connect(operator).approve(stableToken.target, TELLER_PROXY, ethers.MaxUint256)
     })
@@ -443,7 +460,7 @@ describe("#vault-rwa", () => {
         // buy at path token
         await vault.connect(bob).deposit(merkleTree.root, proofBob, vpUSYC.target, [
             { tokenAddress: WETH9_ADDRESS, poolFee: 3000 },
-            { tokenAddress: USDC, poolFee: 3000 }
+            { tokenAddress: PYUSD_MODE ? USDC_PROXY : PYUSD_PROXY, poolFee: 3000 }
         ], 0, 0, "0x", 0, { value: toEther(0.1) }); //~300usd
 
         //checking

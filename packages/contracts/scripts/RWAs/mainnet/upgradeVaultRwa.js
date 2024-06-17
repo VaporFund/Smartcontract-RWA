@@ -1,7 +1,7 @@
 const { ethers, upgrades } = require("hardhat");
 const { verifyImplementContract, verifyContract } = require("../../verifyUtils");
 
-const vaultAddress = "0xdc9C2e95811b183752A1c5893182904d4fa7E781"; // proxy address vault
+const vaultAddress = "0x38efCc435b677d8c68bC48A4F2EDFDA1eD2917F3"; // proxy address vault
 const whitelistManagerAddress = "0xb4f7b648be3158421bd73846c7cd0093674fe8d5"; // proxy address vault
 
 async function main() {
